@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://test/./src/index.js"],"names":[],"mappings":";;AAAA;;AAEA,C","file":"bundle.js","sourcesContent":["window.onload = () =>{\r\n    \r\n}"],"sourceRoot":""}
