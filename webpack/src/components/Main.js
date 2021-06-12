@@ -1,4 +1,4 @@
-import { Scene, GridHelper, LoadingManager, AmbientLight, Clock } from 'three';
+import { Scene, GridHelper, LoadingManager, AmbientLight, Clock, Vector3 } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 import Renderer from './Renderer';
@@ -8,44 +8,75 @@ import Floor from './Floor';
 import Skybox from './Skybox';
 import Player from './Player';
 import PlayerControl from "./PlayerControl"
-import SocketHanler from './SocketHandler';
+import SocketHandler from './SocketHandler';
 import Config from './Config';
 
 import { io } from "socket.io-client";
 
 export default class Main {
     constructor(container) {
-        this.socketHandler = new SocketHanler(io("ws://localhost:3000"))
-
+        this.socketHandler = new SocketHandler(io("ws://localhost:3000"))
+        // io("ws://localhost:3000"
         this.container = container;
-        this.scene = new Scene();
-        this.renderer = new Renderer(this.scene, container);
-        this.camera = new Camera(this.renderer);
+        this.init();
+    }
+    init = async () => { // naprawienie tego sprawdzania, żeby tylko na jednym oknie w jednej przeglądarce
+        this.socketHandler.num.then((response) => {
+            // console.log(response)
+            if ((localStorage.getItem("player") == null ||
+                (localStorage.getItem("wpoczekalni") == "true" && localStorage.getItem("player") == null))
+            ) {
+                console.log("1TRU")
+                this.num = response
+                localStorage.setItem("player", this.num)
+            } else if (localStorage.getItem("active") == null) {
+                this.num = localStorage.getItem("player")
+            }
+            if (this.num < 2 && localStorage.getItem("active") == null || sessionStorage.getItem("active") != null) {
+                sessionStorage.setItem("active", true)
+                localStorage.setItem("active", true)
+                localStorage.setItem("wpoczekalni", false)
+                window.onbeforeunload = () => {
+                    localStorage.removeItem("active")
+                    localStorage.removeItem("player")
+                    sessionStorag.removeItem("active")
+                }
+                // console.log(localStorage.getItem("active"))
+                console.log(this.num)
+                this.scene = new Scene();
+                this.renderer = new Renderer(this.scene, this.container);
+                this.camera = new Camera(this.renderer);
 
-        //////////
+                //////////
 
-        this.clock = new Clock();
-        this.manager = new LoadingManager();
-        this.playerControl = new PlayerControl
+                this.clock = new Clock();
+                this.manager = new LoadingManager();
+                this.playerControl = new PlayerControl();
 
-        //
+                //
 
-        this.camera.position.set(50, 50, 50)
-        const grid = new GridHelper(200, 20, "red")
-        grid.translateY(1)
-        this.camera.lookAt(0, 0, 0)
-        this.scene.add(grid)
-        this.floor = new Floor(this.scene)
-        this.floor.add(0, "lightgrey", -1)
-        this.ambientLight = new AmbientLight("white", 0.5)
-        this.skyBox = new Skybox(this.scene);
-        this.scene.add(this.ambientLight)
-        this.player1 = new Player(this.scene, 0, 0, 0)
-        const controls = new OrbitControls(this.camera, this.renderer.domElement)
-        //////////
-        this.player1.mesh.rotation.y += Math.PI / 2
-        this.playerSpeed = 1;
-        this.render();
+                this.camera.position.set(50, 50, 50)
+                const grid = new GridHelper(200, 20, "red")
+                grid.translateY(1)
+                this.camera.lookAt(0, 0, 0)
+                this.scene.add(grid)
+                this.floor = new Floor(this.scene)
+                this.floor.add(0, "lightgrey", -1)
+                this.ambientLight = new AmbientLight("white", 0.5)
+                this.skyBox = new Skybox(this.scene);
+                this.scene.add(this.ambientLight)
+                this.player1 = new Player(this.scene, 0, 0, 0)
+                const controls = new OrbitControls(this.camera, this.renderer.domElement)
+                //////////
+                this.player1.mesh.rotation.y += Math.PI / 2
+                this.playerSpeed = 1;
+                this.prevPos = new Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
+                this.render();
+            } else {
+                console.log("Zaczekaj aż zwolni się miejsce!")
+                localStorage.setItem("wpoczekalni", true)
+            }
+        })
     }
 
     render() {
@@ -53,6 +84,7 @@ export default class Main {
         // console.log("render leci")
 
         {//kontrola ruchu
+            this.player1.mesh
             if (Config.turnLeft || Config.turnRight) {
                 this.player1.mesh.rotateY((0.05 - 0.10 * Config.turnRight) * (Config.turnLeft ^ Config.turnRight))
             }
@@ -76,10 +108,15 @@ export default class Main {
                 //check for coll
                 this.player1.mesh.translateX(this.playerSpeed)
             }
+
             if (Config.moveBackward && !Config.moveRight && !Config.moveLeft) {
                 this.player1.mesh.translateX(-this.playerSpeed)
                 //check for coll
             }
+        }
+        if (!this.prevPos.equals(this.player1.mesh.position)) {
+            this.socketHandler.sendData(this.player1.mesh.position)
+            this.prevPos = new Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
         }
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render.bind(this));
