@@ -44,5 +44,5 @@ module.exports = {
     },
     devtool: "source-map",
     mode: 'development',
-    mode: 'none' // none, development, production
+    // mode: 'none' // none, development, production
 };

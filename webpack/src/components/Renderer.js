@@ -1,4 +1,4 @@
-import { BasicShadowMap, PCFShadowMap, PCFSoftShadowMap, WebGLRenderer } from 'three';
+import { BasicShadowMap, Color, PCFShadowMap, PCFSoftShadowMap, WebGLRenderer } from 'three';
 
 export default class Renderer extends WebGLRenderer {
     constructor(scene, container) {
@@ -6,7 +6,8 @@ export default class Renderer extends WebGLRenderer {
         this.scene = scene;
         this.container = container;
         // this.threeRenderer = new WebGLRenderer({ antialias: true });
-        this.setClearColor(0xFFFFFF);
+        this.setClearColor(new Color(0xEEEEEE, 1.0))
+        
         this.container.appendChild(this.domElement);
         this.updateSize();
         // this.threeRenderer.shadowMap.enabled = true;
