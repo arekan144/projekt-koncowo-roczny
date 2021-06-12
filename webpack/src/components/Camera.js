@@ -1,13 +1,12 @@
 import { PerspectiveCamera, Vector3 } from 'three';
 
-export default class Camera {
+export default class Camera extends PerspectiveCamera {
     constructor(renderer) {
         const width = renderer.domElement.width;
         const height = renderer.domElement.height;
 
-        this.threeCamera = new PerspectiveCamera(75, width / height, 0.1, 10000);
-        this.threeCamera.position.set(0, 0, 0);
-        // this.threeCamera.lookAt(new Vector3(0, 0, 0))
+        super(75, width / height, 0.1, 10000);
+        this.position.set(0, 0, 0);
 
         this.updateSize(renderer);
 
@@ -16,7 +15,7 @@ export default class Camera {
 
     updateSize(renderer) {
 
-        this.threeCamera.aspect = renderer.domElement.width / renderer.domElement.height;
-        this.threeCamera.updateProjectionMatrix();
+        this.aspect = renderer.domElement.width / renderer.domElement.height;
+        this.updateProjectionMatrix();
     }
 }

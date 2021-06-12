@@ -6,8 +6,8 @@ export default class Renderer extends WebGLRenderer {
         this.scene = scene;
         this.container = container;
         // this.threeRenderer = new WebGLRenderer({ antialias: true });
-        this.setClearColor(new Color(0xEEEEEE, 1.0))
-        
+        this.setClearColor(0xffffff)
+
         this.container.appendChild(this.domElement);
         this.updateSize();
         // this.threeRenderer.shadowMap.enabled = true;
