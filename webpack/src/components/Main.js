@@ -22,12 +22,12 @@ export default class Main {
         //
 
         this.camera.position.set(50, 50, 50)
-        const grid = new GridHelper(200, 20, "green")
+        const grid = new GridHelper(200, 20, "red")
         grid.translateY(1)
         this.camera.lookAt(0, 0, 0)
         this.scene.add(grid)
-        // this.floor = new Floor(this.scene)
-        // this.floor.add(0, 0xbfbfbf, -1)
+        this.floor = new Floor(this.scene)
+        this.floor.add(0, "lightgreen", -1)
         this.ambientLight = new AmbientLight("white", 0.5)
         this.skyBox = new Skybox(this.scene);
         this.scene.add(this.ambientLight)
