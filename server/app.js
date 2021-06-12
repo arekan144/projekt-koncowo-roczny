@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const path = require("path");
 
 app.use(express.static("static"))
 
@@ -9,5 +10,5 @@ app.listen(PORT, () => {
 })
 
 app.get("/", (req, res) => {
-    res.sendFile("./")
+    res.sendFile("./start.html")
 })
