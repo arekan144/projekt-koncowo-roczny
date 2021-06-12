@@ -55292,7 +55292,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function init() {
-    const socket = (0,socket_io_client__WEBPACK_IMPORTED_MODULE_1__.io)("ws//localhost:3000")
+    const socket = (0,socket_io_client__WEBPACK_IMPORTED_MODULE_1__.io)("ws://localhost:3000", {
+
+    })
 
     const container = document.getElementById('root');
 
