@@ -1,14 +1,23 @@
 const express = require("express");
-const app = express();
-const path = require("path");
 
-app.use(express.static("static"))
+const path = require("path");
+const socketIO = require("socket.io");
+const get = require("./routers/get.js")
+const INDEX = '/index.html';
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Serwer na ${PORT}.`)
-})
+const server = express()
+    .use(express.static("./static"))
+    .use("/", get)
+    .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-app.get("/", (req, res) => {
-    res.sendFile("./start.html")
-})
+
+const io = socketIO(server, {
+    cors: {
+        origin: '*',
+    }
+});
+io.on('connection', (socket) => {
+    console.log('Client connected');
+    socket.on('disconnect', () => console.log('Client disconnected'));
+});

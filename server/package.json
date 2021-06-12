@@ -1,15 +1,20 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "bufferutil": "^4.0.3",
+    "express": "^4.17.1",
+    "socket.io": "^4.1.2",
+    "utf-8-validate": "^5.0.5",
+    "ws": "^7.4.6"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "AS KJ",
-  "license": "ISC"
+  "license": "ISC",
+  "keywords": [],
+  "description": ""
 }
