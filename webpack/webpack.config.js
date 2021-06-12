@@ -32,10 +32,10 @@ module.exports = {
                     }
                 }]
             },
-            {
-                test: /\.(md2)$/i,
-                type: 'asset/resource',
-            }
+            // {
+            //     test: /\.(md2)$/i,
+            //     type: 'asset/resource',
+            // }
         ]
     },
     output: {
