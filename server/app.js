@@ -19,26 +19,40 @@ const io = socketIO(server, {
     }
 });
 
-const activeUsers = new Array();
+const activeUsers = new Map();
 
-let x = 0;
+
 io.on('connection', (socket) => {
-    let x = 0;
+
     console.log('Client connected');
-    while (activeUsers.indexOf(x) != -1) {
-        x++;
-    }
-    socket.socketId = x;
-    activeUsers.push(socket.socketId)
-    console.log(activeUsers, x)
-    socket.emit('nowy', x)
+    // socket.ID = "User" + Math.floor(Math.random() * 1000);
+    // activeUsers.set(socket.ID, null)
+
+    socket.on('getnum', (string) => {
+        let toReturn = 0;
+        if (activeUsers.get(string) == null) {
+            while ([...activeUsers.values()].indexOf(toReturn) != -1) {
+                toReturn++;
+            }
+            console.log(toReturn, "nowy")
+            socket.ID = string;
+            activeUsers.set(string, toReturn);
+        } else {
+            console.log(activeUsers.get(socket.ID), "stary")
+            socket.ID = string;
+            toReturn = activeUsers.get(socket.ID);
+        }
+        console.log(activeUsers)
+        socket.emit('getnumres', toReturn)
+    })
+
     socket.on('disconnect', () => {
         console.log('Client disconnected')
-        activeUsers.splice(activeUsers.indexOf(socket.userId), 1)
-        console.log(activeUsers)
+        activeUsers.delete(socket.ID)
     });
+
     socket.on('cords', (string) => {
         console.log(string);
         io.emit("plmv", string)
-    })
+    });
 });

@@ -56532,39 +56532,58 @@ __webpack_require__.r(__webpack_exports__);
 
 class Main {
     constructor(container) {
-        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_9__.io)("ws://localhost:3000"))
-
+        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_9__.io)("ws://localhost:3000"), { query: "foo=bar" })
+        // io("ws://localhost:3000"
         this.container = container;
-        this.scene = new three__WEBPACK_IMPORTED_MODULE_10__.Scene();
-        this.renderer = new _Renderer__WEBPACK_IMPORTED_MODULE_0__.default(this.scene, container);
-        this.camera = new _Camera__WEBPACK_IMPORTED_MODULE_1__.default(this.renderer);
+        this.init();
+    }
+    init = async () => { // naprawienie tego sprawdzania, żeby tylko na jednym oknie w jednej przeglądarce
+        this.socketHandler.num.then((response) => {
+            this.num = response;
+            console.log(this.num)
+            if (this.num < 2) {
 
-        //////////
+                //////////
 
-        this.clock = new three__WEBPACK_IMPORTED_MODULE_10__.Clock();
-        this.manager = new three__WEBPACK_IMPORTED_MODULE_10__.LoadingManager();
-        this.playerControl = new _PlayerControl__WEBPACK_IMPORTED_MODULE_6__.default();
 
-        //
+                this.scene = new three__WEBPACK_IMPORTED_MODULE_10__.Scene();
+                this.renderer = new _Renderer__WEBPACK_IMPORTED_MODULE_0__.default(this.scene, this.container);
+                this.camera = new _Camera__WEBPACK_IMPORTED_MODULE_1__.default(this.renderer);
 
-        this.camera.position.set(50, 50, 50)
-        const grid = new three__WEBPACK_IMPORTED_MODULE_10__.GridHelper(200, 20, "red")
-        grid.translateY(1)
-        this.camera.lookAt(0, 0, 0)
-        this.scene.add(grid)
-        this.floor = new _Floor__WEBPACK_IMPORTED_MODULE_3__.default(this.scene)
-        this.floor.add(0, "lightgrey", -1)
-        this.ambientLight = new three__WEBPACK_IMPORTED_MODULE_10__.AmbientLight("white", 0.5)
-        this.skyBox = new _Skybox__WEBPACK_IMPORTED_MODULE_4__.default(this.scene);
-        this.scene.add(this.ambientLight)
-        this.player1 = new _Player__WEBPACK_IMPORTED_MODULE_5__.default(this.scene, 0, 0, 0)
-        const controls = new three_examples_jsm_controls_OrbitControls_js__WEBPACK_IMPORTED_MODULE_11__.OrbitControls(this.camera, this.renderer.domElement)
-        //////////
-        this.player1.mesh.rotation.y += Math.PI / 2
-        this.playerSpeed = 1;
-        this.prevPos = new three__WEBPACK_IMPORTED_MODULE_10__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
-        this.render();
+                //////////
 
+                this.clock = new three__WEBPACK_IMPORTED_MODULE_10__.Clock();
+                this.manager = new three__WEBPACK_IMPORTED_MODULE_10__.LoadingManager();
+                this.playerControl = new _PlayerControl__WEBPACK_IMPORTED_MODULE_6__.default();
+
+                //////////
+
+                this.camera.position.set(50, 50, 50)
+                const grid = new three__WEBPACK_IMPORTED_MODULE_10__.GridHelper(200, 20, "red")
+                grid.translateY(1)
+                this.camera.lookAt(0, 0, 0)
+                this.scene.add(grid)
+                this.floor = new _Floor__WEBPACK_IMPORTED_MODULE_3__.default(this.scene)
+                this.floor.add(0, "lightgrey", -1)
+                this.ambientLight = new three__WEBPACK_IMPORTED_MODULE_10__.AmbientLight("white", 0.5)
+                this.skyBox = new _Skybox__WEBPACK_IMPORTED_MODULE_4__.default(this.scene);
+                this.scene.add(this.ambientLight)
+                this.player1 = new _Player__WEBPACK_IMPORTED_MODULE_5__.default(this.scene, 0, 0, 0)
+                const controls = new three_examples_jsm_controls_OrbitControls_js__WEBPACK_IMPORTED_MODULE_11__.OrbitControls(this.camera, this.renderer.domElement)
+
+                //////////
+
+                this.player1.mesh.rotation.y += Math.PI / 2
+                this.playerSpeed = 1;
+                this.prevPos = new three__WEBPACK_IMPORTED_MODULE_10__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
+                this.render();
+
+            } else {
+                console.log(this.num)
+                console.log("Zaczekaj aż zwolni się miejsce!")
+
+            }
+        })
     }
 
     render() {
@@ -56844,27 +56863,21 @@ class SocketHandler {
     constructor(socket) {
         this.socket = socket;
         this.data = null;
-        this.playerNum = sessionStorage.getItem("playerNum");
+        this.socket.emit('getnum', "");
+        this.num = new Promise((resolve, reject) => {
+            socket.once('getnum', (data) => {
+                resolve(data)
+            })
+        })
         this.socket.on('plmv', (data) => {
-            console.log(data)
+            // console.log(data)
             this.data = data;
         })
-        this.init()
     }
     sendData(string) {
         this.socket.emit("cords", string)
     }
-    init = async () => {
-        if (this.playerNum == null) {
-            let resonse = await fetch("http:////localhost:3000/", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'text/plane',
-                },
-                body: "",
-            })
-        }
-    }
+
 }
 
 /***/ })

@@ -16,33 +16,19 @@ import { io } from "socket.io-client";
 export default class Main {
     constructor(container) {
         this.socketHandler = new SocketHandler(io("ws://localhost:3000"))
-        // io("ws://localhost:3000"
         this.container = container;
         this.init();
     }
     init = async () => { // naprawienie tego sprawdzania, żeby tylko na jednym oknie w jednej przeglądarce
+        console.log("ee")
         this.socketHandler.num.then((response) => {
             // console.log(response)
-            if ((localStorage.getItem("player") == null ||
-                (localStorage.getItem("wpoczekalni") == "true" && localStorage.getItem("player") == null))
-            ) {
-                console.log("1TRU")
-                this.num = response
-                localStorage.setItem("player", this.num)
-            } else if (localStorage.getItem("active") == null) {
-                this.num = localStorage.getItem("player")
-            }
-            if (this.num < 2 && localStorage.getItem("active") == null || sessionStorage.getItem("active") != null) {
-                sessionStorage.setItem("active", true)
-                localStorage.setItem("active", true)
-                localStorage.setItem("wpoczekalni", false)
-                window.onbeforeunload = () => {
-                    localStorage.removeItem("active")
-                    localStorage.removeItem("player")
-                    sessionStorag.removeItem("active")
-                }
-                // console.log(localStorage.getItem("active"))
-                console.log(this.num)
+            this.num = response;
+            // console.log(this.num)
+            if (this.num < 3) {
+
+                //////////
+
                 this.scene = new Scene();
                 this.renderer = new Renderer(this.scene, this.container);
                 this.camera = new Camera(this.renderer);
@@ -53,7 +39,7 @@ export default class Main {
                 this.manager = new LoadingManager();
                 this.playerControl = new PlayerControl();
 
-                //
+                //////////
 
                 this.camera.position.set(50, 50, 50)
                 const grid = new GridHelper(200, 20, "red")
@@ -67,14 +53,18 @@ export default class Main {
                 this.scene.add(this.ambientLight)
                 this.player1 = new Player(this.scene, 0, 0, 0)
                 const controls = new OrbitControls(this.camera, this.renderer.domElement)
+
                 //////////
+
                 this.player1.mesh.rotation.y += Math.PI / 2
                 this.playerSpeed = 1;
                 this.prevPos = new Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
                 this.render();
+
             } else {
+                console.log(this.num)
                 console.log("Zaczekaj aż zwolni się miejsce!")
-                localStorage.setItem("wpoczekalni", true)
+
             }
         })
     }

@@ -2,16 +2,20 @@ export default class SocketHandler {
     constructor(socket) {
         this.socket = socket;
         this.data = null;
+        if (localStorage.getItem("userID") == null) {
+            this.userID = "User" + Math.floor(Math.random() * 1000);
+            localStorage.setItem("userID", this.userID)
+        } else {
+            this.userID = localStorage.getItem("userID")
+        }
+        console.log(this.userID)
+        this.socket.emit('getnum', this.userID);
         this.num = new Promise((resolve, reject) => {
-            if (localStorage.getItem("player") == null && localStorage.getItem("active") == null)
-                socket.once('nowy', (data) => {
-                    // console.log(data)
-                    resolve(data)
-                })
-            else resolve(localStorage.getItem("player"))
+            socket.on('getnumres', (data) => {
+                console.log(data, "dud")
+                resolve(data)
+            })
         })
-        // console.log(this.num)
-        this.playerNum = sessionStorage.getItem("playerNum");
         this.socket.on('plmv', (data) => {
             // console.log(data)
             this.data = data;
