@@ -56532,19 +56532,20 @@ __webpack_require__.r(__webpack_exports__);
 
 class Main {
     constructor(container) {
-        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_9__.io)("ws://localhost:3000"), { query: "foo=bar" })
-        // io("ws://localhost:3000"
+        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_9__.io)("ws://localhost:3000"))
         this.container = container;
         this.init();
     }
     init = async () => { // naprawienie tego sprawdzania, żeby tylko na jednym oknie w jednej przeglądarce
+        console.log("ee")
         this.socketHandler.num.then((response) => {
+            // console.log(response)
             this.num = response;
-            console.log(this.num)
+            this.socketHandler.num = this.num
+            // console.log(this.num)
             if (this.num < 2) {
 
                 //////////
-
 
                 this.scene = new three__WEBPACK_IMPORTED_MODULE_10__.Scene();
                 this.renderer = new _Renderer__WEBPACK_IMPORTED_MODULE_0__.default(this.scene, this.container);
@@ -56569,6 +56570,9 @@ class Main {
                 this.skyBox = new _Skybox__WEBPACK_IMPORTED_MODULE_4__.default(this.scene);
                 this.scene.add(this.ambientLight)
                 this.player1 = new _Player__WEBPACK_IMPORTED_MODULE_5__.default(this.scene, 0, 0, 0)
+                this.player2 = new _Player__WEBPACK_IMPORTED_MODULE_5__.default(this.scene, 0, 0, 0)
+                this.player2.mesh.material.color = new three__WEBPACK_IMPORTED_MODULE_10__.Color("red")
+                this.socketHandler.oplayer = { pos: new three__WEBPACK_IMPORTED_MODULE_10__.Vector3(this.player2.mesh.position.x, this.player2.mesh.position.y, this.player2.mesh.position.z) }
                 const controls = new three_examples_jsm_controls_OrbitControls_js__WEBPACK_IMPORTED_MODULE_11__.OrbitControls(this.camera, this.renderer.domElement)
 
                 //////////
@@ -56624,6 +56628,10 @@ class Main {
         if (!this.prevPos.equals(this.player1.mesh.position)) {
             this.socketHandler.sendData(this.player1.mesh.position)
             this.prevPos = new three__WEBPACK_IMPORTED_MODULE_10__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
+        }
+
+        if (!this.socketHandler.oplayer.pos.equals(this.player2.mesh.position)) {
+            this.player2.mesh.position.set(this.socketHandler.oplayer.pos.x, this.socketHandler.oplayer.pos.y, this.socketHandler.oplayer.pos.z)
         }
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render.bind(this));
@@ -56859,23 +56867,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ SocketHandler)
 /* harmony export */ });
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+
+
 class SocketHandler {
     constructor(socket) {
         this.socket = socket;
-        this.data = null;
-        this.socket.emit('getnum', "");
+        this.oplayer = null
+        // this.data = null;
+        if (localStorage.getItem("userID") == null) {
+            this.userID = "User" + Math.floor(Math.random() * 1000);
+            localStorage.setItem("userID", this.userID)
+        } else {
+            this.userID = localStorage.getItem("userID")
+        }
+        console.log(this.userID)
+        this.socket.emit('getnum', this.userID);
         this.num = new Promise((resolve, reject) => {
-            socket.once('getnum', (data) => {
+            socket.on('getnumres', (data) => {
+                console.log(data, "dud")
                 resolve(data)
             })
         })
         this.socket.on('plmv', (data) => {
-            // console.log(data)
-            this.data = data;
+            let userId_num = data.split("=")[0].split(":")
+            // console.log(userId_num)
+            if (userId_num[1] != this.num) {
+                let o = JSON.parse(data.split("=")[1])
+                this.oplayer = { pos: new three__WEBPACK_IMPORTED_MODULE_0__.Vector3(o.x, o.y, o.z) }
+                console.log(this.oplayer)
+            }
         })
     }
     sendData(string) {
-        this.socket.emit("cords", string)
+        this.socket.emit("cords", this.userID + ":" + this.num + "=" + JSON.stringify(string))
     }
 
 }
