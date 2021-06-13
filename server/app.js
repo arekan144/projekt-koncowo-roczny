@@ -20,7 +20,7 @@ const io = socketIO(server, {
 });
 
 const activeUsers = new Map();
-
+const aWindows = new Map();
 
 io.on('connection', (socket) => {
 
@@ -37,18 +37,25 @@ io.on('connection', (socket) => {
             console.log(toReturn, "nowy")
             socket.ID = string;
             activeUsers.set(string, toReturn);
+            aWindows.set(string, 1)
         } else {
             console.log(activeUsers.get(socket.ID), "stary")
             socket.ID = string;
             toReturn = activeUsers.get(socket.ID);
+            let xW = aWindows.get(string)
+            aWindows.set(string, ++xW)
         }
-        console.log(activeUsers)
+        console.log(activeUsers, aWindows)
         socket.emit('getnumres', toReturn)
     })
 
     socket.on('disconnect', () => {
         console.log('Client disconnected')
-        activeUsers.delete(socket.ID)
+        let xW = aWindows.get(socket.ID)
+        aWindows.set(socket.ID, --xW)
+        if (aWindows.get(socket.ID) < 1)
+            activeUsers.delete(socket.ID)
+        console.log(activeUsers, aWindows)
     });
 
     socket.on('cords', (string) => {
