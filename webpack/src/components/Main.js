@@ -1,4 +1,4 @@
-import { Scene, GridHelper, LoadingManager, AmbientLight, Clock, Vector3 } from 'three';
+import { Scene, GridHelper, LoadingManager, AmbientLight, Clock, Vector3, Color } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 import Renderer from './Renderer';
@@ -24,8 +24,9 @@ export default class Main {
         this.socketHandler.num.then((response) => {
             // console.log(response)
             this.num = response;
+            this.socketHandler.num = this.num
             // console.log(this.num)
-            if (this.num < 3) {
+            if (this.num < 2) {
 
                 //////////
 
@@ -52,6 +53,9 @@ export default class Main {
                 this.skyBox = new Skybox(this.scene);
                 this.scene.add(this.ambientLight)
                 this.player1 = new Player(this.scene, 0, 0, 0)
+                this.player2 = new Player(this.scene, 0, 0, 0)
+                this.player2.mesh.material.color = new Color("red")
+                this.socketHandler.oplayer = { pos: new Vector3(this.player2.mesh.position.x, this.player2.mesh.position.y, this.player2.mesh.position.z) }
                 const controls = new OrbitControls(this.camera, this.renderer.domElement)
 
                 //////////
@@ -107,6 +111,10 @@ export default class Main {
         if (!this.prevPos.equals(this.player1.mesh.position)) {
             this.socketHandler.sendData(this.player1.mesh.position)
             this.prevPos = new Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
+        }
+
+        if (!this.socketHandler.oplayer.pos.equals(this.player2.mesh.position)) {
+            this.player2.mesh.position.set(this.socketHandler.oplayer.pos.x, this.socketHandler.oplayer.pos.y, this.socketHandler.oplayer.pos.z)
         }
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render.bind(this));
