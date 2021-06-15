@@ -10,7 +10,7 @@ import Player from './Player';
 import PlayerControl from "./PlayerControl"
 import SocketHandler from './SocketHandler';
 import Config from './Config';
-
+import mapblock from './map';
 import { io } from "socket.io-client";
 
 export default class Main {
@@ -42,10 +42,10 @@ export default class Main {
 
                 //////////
 
-                this.camera.position.set(50, 50, 50)
+
                 const grid = new GridHelper(200, 20, "red")
                 grid.translateY(1)
-                this.camera.lookAt(0, 0, 0)
+
                 this.scene.add(grid)
                 this.floor = new Floor(this.scene)
                 this.floor.add(0, "lightgrey", -1)
@@ -54,7 +54,22 @@ export default class Main {
                 this.scene.add(this.ambientLight)
                 this.player1 = new Player(this.scene, 0, 0, 0)
                 this.player2 = new Player(this.scene, 0, 0, 0)
+                this.mapblock1 = new mapblock(this.scene, -90, 0, -400, 20, 50, 1000, 'black') //bloki mapy, osx, osy, osz, szer, wys, dlug, kolor
+                this.mapblock2 = new mapblock(this.scene, 90, 0, -400, 20, 50, 1000, 'black')
+                this.mapblock3 = new mapblock(this.scene, -55, 0, -100, 50, 50, 20, 'yellow')
+                this.mapblock4 = new mapblock(this.scene, 0, 0, -100, 60, 50, 20, 'brown')
+                this.mapblock5 = new mapblock(this.scene, 55, 0, -100, 50, 50, 20, 'yellow')
+                this.mapblock6 = new mapblock(this.scene, -55, 0, -300, 50, 50, 20, 'brown')
+                this.mapblock7 = new mapblock(this.scene, 0, 0, -300, 60, 50, 20, 'yellow')
+                this.mapblock8 = new mapblock(this.scene, 55, 0, -300, 50, 50, 20, 'yellow')
+                this.mapblock9 = new mapblock(this.scene, -55, 0, -500, 50, 50, 20, 'brown')
+                this.mapblock10 = new mapblock(this.scene, 0, 0, -500, 60, 50, 20, 'yellow')
+                this.mapblock11 = new mapblock(this.scene, 55, 0, -500, 50, 50, 20, 'yellow')
+                this.mapblock12 = new mapblock(this.scene, -55, 0, -700, 50, 50, 20, 'brown')
+                this.mapblock13 = new mapblock(this.scene, 0, 0, -700, 60, 50, 20, 'yellow')
+                this.mapblock14 = new mapblock(this.scene, 55, 0, -700, 50, 50, 20, 'yellow')
                 this.player2.mesh.material.color = new Color("red")
+                this.camera.lookAt(this.player1.mesh.position)
                 this.socketHandler.oplayer = { pos: new Vector3(this.player2.mesh.position.x, this.player2.mesh.position.y, this.player2.mesh.position.z) }
                 const controls = new OrbitControls(this.camera, this.renderer.domElement)
 
@@ -116,6 +131,8 @@ export default class Main {
         if (!this.socketHandler.oplayer.pos.equals(this.player2.mesh.position)) {
             this.player2.mesh.position.set(this.socketHandler.oplayer.pos.x, this.socketHandler.oplayer.pos.y, this.socketHandler.oplayer.pos.z)
         }
+        this.camera.position.set(this.player1.mesh.position.x ,this.player1.mesh.position.y + 20,this.player1.mesh.position.z + 50) //kamera porusza sie za graczem
+        this.camera.lookAt(this.player1.mesh.position)
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render.bind(this));
     }
