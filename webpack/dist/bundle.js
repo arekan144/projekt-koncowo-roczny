@@ -56390,6 +56390,113 @@ class Camera extends three__WEBPACK_IMPORTED_MODULE_0__.PerspectiveCamera {
 
 /***/ }),
 
+/***/ "./src/components/Collisions.js":
+/*!**************************************!*\
+  !*** ./src/components/Collisions.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Collisions)
+/* harmony export */ });
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+
+
+
+class Collisions {
+    constructor(colisionBlocks, colider, scene) {
+        this.collisionBlocks = colisionBlocks;
+        this.mesh = colider;
+        this.table = new Array();
+
+        this.collisionBlocks.forEach((block, index) => {
+            let bx3 = new three__WEBPACK_IMPORTED_MODULE_0__.Box3();
+            block.geometry.computeBoundingBox();
+            bx3.setFromObject(block)
+            const elper = new three__WEBPACK_IMPORTED_MODULE_0__.Box3Helper(bx3, 0xff0000)
+            scene.add(elper)
+            this.table.push({ box: bx3, i: index })
+        })
+
+        const ge = new three__WEBPACK_IMPORTED_MODULE_0__.BoxGeometry(10, 100, 10)
+        const mat = new three__WEBPACK_IMPORTED_MODULE_0__.MeshBasicMaterial({ visible: false, side: three__WEBPACK_IMPORTED_MODULE_0__.DoubleSide })
+        this.object = new three__WEBPACK_IMPORTED_MODULE_0__.Mesh(ge, mat)
+        this.object.position.set(this.mesh.position.x, this.mesh.position.y - 25, this.mesh.position.z)
+        this.meshBox = new three__WEBPACK_IMPORTED_MODULE_0__.Box3();
+        this.meshBox.setFromObject(this.object);
+        const helper = new three__WEBPACK_IMPORTED_MODULE_0__.Box3Helper(this.meshBox, 0xffff00);
+
+        scene.add(this.object, helper)
+        // this.elpers = []
+        // // console.log(enemies)
+        // this.enemies.forEach((block, index) => {
+        //     let bx3 = new Box3();
+        //     block.geometry.computeBoundingBox();
+        //     bx3.setFromObject(block)
+        //     // const elper = new Box3Helper(bx3, 0xff0000)
+        //     let oper = new Mesh(new BoxGeometry(100, 200, 100), new MeshBasicMaterial({ side: FrontSide, visible: false, }))
+        //     // console.log(block.position)
+
+        //     oper.position.set(block.position.x, block.position.y + 30, block.position.z)
+        //     // console.log(oper)
+        //     this.elpers.push(oper)
+
+        //     scene.add(oper)
+        //     // arr.push(this.object);
+        //     // console.log(arr)
+        //     this.able.push({ box: block, elper: oper, alive: 20, checked: false, caster: new CustRaycaster([this.object], block), i: index })
+        // })
+        // this.trTab = [];
+        // tresure.forEach((tr, index) => {
+        //     let bx3 = new Box3();
+        //     tr.geometry.computeBoundingBox();
+        //     bx3.setFromObject(tr)
+        //     // const elper = new Box3Helper(bx3, 0xff0000)
+        //     // scene.add(elper)
+
+        //     this.trTab.push({ box: bx3, block: tr, i: index, active: true })
+        // })
+        // this.playerCaster = new CustRaycaster(this.elpers, this.mesh)
+        // this.playerCaster.long = 2000
+        // this.object.position.set(this.mesh.position.x, this.mesh.position.y - 25, this.mesh.position.z)
+        // scene.add(this.object)
+        // // console.log(helper)
+        // helper.visible = false;
+        // scene.add(helper);
+        // // console.log(this.table)
+
+    }
+
+
+    update() {
+
+        let ball = []
+        // let t = []
+        this.object.position.set(this.mesh.position.x, this.mesh.position.y - 25, this.mesh.position.z)
+        this.meshBox.setFromObject(this.object);
+        this.table.forEach(element => {
+            if (this.meshBox.intersectsBox(element.box)) {
+                ball.push(this.collisionBlocks[element.i])
+            }
+        });
+        // this.trTab.forEach(element => {
+        //     if (this.meshBox.intersectsBox(element.box) && element.active) {
+        //         t.push(this.tresure[element.i])
+        //     }
+        // })
+        // // console.log(t)
+
+        return ball;
+    }
+
+}
+
+
+
+/***/ }),
+
 /***/ "./src/components/Config.js":
 /*!**********************************!*\
   !*** ./src/components/Config.js ***!
@@ -56503,8 +56610,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Main)
 /* harmony export */ });
-/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
-/* harmony import */ var three_examples_jsm_controls_OrbitControls_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! three/examples/jsm/controls/OrbitControls.js */ "./node_modules/three/examples/jsm/controls/OrbitControls.js");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var three_examples_jsm_controls_OrbitControls_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! three/examples/jsm/controls/OrbitControls.js */ "./node_modules/three/examples/jsm/controls/OrbitControls.js");
 /* harmony import */ var _Renderer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Renderer */ "./src/components/Renderer.js");
 /* harmony import */ var _Camera__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Camera */ "./src/components/Camera.js");
 /* harmony import */ var _Ico__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Ico */ "./src/components/Ico.js");
@@ -56514,7 +56621,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PlayerControl__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./PlayerControl */ "./src/components/PlayerControl.js");
 /* harmony import */ var _SocketHandler__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./SocketHandler */ "./src/components/SocketHandler.js");
 /* harmony import */ var _Config__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Config */ "./src/components/Config.js");
-/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/wrapper.mjs");
+/* harmony import */ var _Map__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Map */ "./src/components/Map.js");
+/* harmony import */ var _Collisions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Collisions */ "./src/components/Collisions.js");
+/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/wrapper.mjs");
+
 
 
 
@@ -56532,7 +56642,7 @@ __webpack_require__.r(__webpack_exports__);
 
 class Main {
     constructor(container) {
-        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_9__.io)("ws://localhost:3000"))
+        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_11__.io)("ws://localhost:3000"))
         this.container = container;
         this.init();
     }
@@ -56547,39 +56657,82 @@ class Main {
 
                 //////////
 
-                this.scene = new three__WEBPACK_IMPORTED_MODULE_10__.Scene();
+                this.scene = new three__WEBPACK_IMPORTED_MODULE_12__.Scene();
                 this.renderer = new _Renderer__WEBPACK_IMPORTED_MODULE_0__.default(this.scene, this.container);
                 this.camera = new _Camera__WEBPACK_IMPORTED_MODULE_1__.default(this.renderer);
 
                 //////////
 
-                this.clock = new three__WEBPACK_IMPORTED_MODULE_10__.Clock();
-                this.manager = new three__WEBPACK_IMPORTED_MODULE_10__.LoadingManager();
+                this.clock = new three__WEBPACK_IMPORTED_MODULE_12__.Clock();
+                this.manager = new three__WEBPACK_IMPORTED_MODULE_12__.LoadingManager();
                 this.playerControl = new _PlayerControl__WEBPACK_IMPORTED_MODULE_6__.default();
 
                 //////////
 
-                this.camera.position.set(50, 50, 50)
-                const grid = new three__WEBPACK_IMPORTED_MODULE_10__.GridHelper(200, 20, "red")
+
+                const grid = new three__WEBPACK_IMPORTED_MODULE_12__.GridHelper(200, 20, "red")
                 grid.translateY(1)
-                this.camera.lookAt(0, 0, 0)
+
                 this.scene.add(grid)
                 this.floor = new _Floor__WEBPACK_IMPORTED_MODULE_3__.default(this.scene)
                 this.floor.add(0, "lightgrey", -1)
-                this.ambientLight = new three__WEBPACK_IMPORTED_MODULE_10__.AmbientLight("white", 0.5)
+                this.ambientLight = new three__WEBPACK_IMPORTED_MODULE_12__.AmbientLight("white", 0.5)
                 this.skyBox = new _Skybox__WEBPACK_IMPORTED_MODULE_4__.default(this.scene);
                 this.scene.add(this.ambientLight)
                 this.player1 = new _Player__WEBPACK_IMPORTED_MODULE_5__.default(this.scene, 0, 0, 0)
                 this.player2 = new _Player__WEBPACK_IMPORTED_MODULE_5__.default(this.scene, 0, 0, 0)
-                this.player2.mesh.material.color = new three__WEBPACK_IMPORTED_MODULE_10__.Color("red")
-                this.socketHandler.oplayer = { pos: new three__WEBPACK_IMPORTED_MODULE_10__.Vector3(this.player2.mesh.position.x, this.player2.mesh.position.y, this.player2.mesh.position.z) }
-                const controls = new three_examples_jsm_controls_OrbitControls_js__WEBPACK_IMPORTED_MODULE_11__.OrbitControls(this.camera, this.renderer.domElement)
+                let sciana1 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -90, 0, -400, 20, 50, 1000, 'black') //bloki mapy, osx, osy, osz, szer, wys, dlug, kolor
+                let sciana2 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 90, 0, -400, 20, 50, 1000, 'black')
+                let mapblock3 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -100, 50, 50, 20, 'yellow')
+                let mapblock4 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -100, 60, 50, 20, 'brown')
+                let mapblock5 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -100, 50, 50, 20, 'yellow')
+                let mapblock6 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -300, 50, 50, 20, 'brown')
+                let mapblock7 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -300, 60, 50, 20, 'yellow')
+                let mapblock8 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -300, 50, 50, 20, 'yellow')
+                let mapblock9 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -500, 50, 50, 20, 'brown')
+                let mapblock10 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -500, 60, 50, 20, 'yellow')
+                let mapblock11 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -500, 50, 50, 20, 'yellow')
+                let mapblock12 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -700, 50, 50, 20, 'brown')
+                let mapblock13 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -700, 60, 50, 20, 'yellow')
+                let mapblock14 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -700, 50, 50, 20, 'yellow')
 
+                this.map = [
+                    new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, 100, 200, 50, 20, 'black'),
+                    //bloki mapy,             osx, osy, osz, szer, wys, dlug, kolor
+                    new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -900, 200, 50, 20, 'black'),
+                    sciana1, sciana2, //0-3 ściany
+                    mapblock3, mapblock4, mapblock5, //4 - 15 bloki odpowiedzi
+                    mapblock6, mapblock7, mapblock8,
+                    mapblock9, mapblock10, mapblock11,
+                    mapblock12, mapblock13, mapblock14
+                ] // wstawmy to do jednej tablicy.
+
+                this.player2.mesh.material.color = new three__WEBPACK_IMPORTED_MODULE_12__.Color("red")
+                // this.camera.lookAt(this.player1.mesh.position)
+
+                this.socketHandler.oplayer = { pos: new three__WEBPACK_IMPORTED_MODULE_12__.Vector3(this.player2.mesh.position.x, this.player2.mesh.position.y, this.player2.mesh.position.z) }
+                const controls = new three_examples_jsm_controls_OrbitControls_js__WEBPACK_IMPORTED_MODULE_13__.OrbitControls(this.camera, this.renderer.domElement)
+                //jeżeli kamera podąża to usuńmy to ^
+                let walls = [this.map[0].mesh, this.map[1].mesh, this.map[2].mesh, this.map[3].mesh]
+                // walls = [...wals, ]
+                this.stopColision = new _Collisions__WEBPACK_IMPORTED_MODULE_10__.default(walls, this.player1.mesh, this.scene)
+                let wrong = [];
+                let right = [];
+                this.map.forEach(mapElement => {
+                    if (mapElement.color == "yellow") {
+                        wrong.push(mapElement.mesh)
+                    }
+                    if (mapElement.color == "brown") {
+                        right.push(mapElement.mesh)
+                    }
+                });
                 //////////
+                console.log(wrong, right);
+                this.camera.position.set(20, 50, 20)
 
                 this.player1.mesh.rotation.y += Math.PI / 2
-                this.playerSpeed = 1;
-                this.prevPos = new three__WEBPACK_IMPORTED_MODULE_10__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
+                this.playerSpeed = 2;
+                this.prevPos = new three__WEBPACK_IMPORTED_MODULE_12__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
                 this.render();
 
             } else {
@@ -56593,7 +56746,7 @@ class Main {
     render() {
         let delta = this.clock.getDelta();
         // console.log("render leci")
-
+        this.camera.position.set(this.player1.mesh.position.x, 300, this.player1.mesh.position.z - 10)
         {//kontrola ruchu
             this.player1.mesh
             if (_Config__WEBPACK_IMPORTED_MODULE_8__.default.turnLeft || _Config__WEBPACK_IMPORTED_MODULE_8__.default.turnRight) {
@@ -56602,40 +56755,97 @@ class Main {
             if (_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveLeft && !_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveForward && !_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveBackward) {
                 this.player1.mesh.translateZ(-this.playerSpeed)
                 //check for coll
-
+                while (this.stopColision.update().length > 0) {
+                    this.player1.mesh.translateZ(this.playerSpeed / 100)
+                }
             }
             if (_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveRight && !_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveForward && !_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveBackward) {
                 this.player1.mesh.translateZ(this.playerSpeed)
                 //check for coll
+                while (this.stopColision.update().length > 0) {
+                    this.player1.mesh.translateZ(-this.playerSpeed / 100)
+                }
             }
             if ((_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveRight || _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveLeft) && (_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveForward || _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveBackward)) {
-                //check for coll
+
                 this.player1.mesh.translateZ((_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveRight ^ _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveLeft) * (-(this.playerSpeed / 2) + this.playerSpeed * _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveRight))
                 //check for coll
-                this.player1.mesh.translateX((_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveBackward ^ _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveForward) * ((this.playerSpeed / 2) - this.playerSpeed * _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveBackward))
+                let tab = this.stopColision.update();
+                while (tab.length > 0) {
+                    this.player1.mesh.translateZ(-((_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveRight ^ _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveLeft) * (-(this.playerSpeed / 2) + this.playerSpeed * _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveRight)))
+                    tab = this.stopColision.update();
+                }
 
+                this.player1.mesh.translateX((_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveBackward ^ _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveForward) * ((this.playerSpeed / 2) - this.playerSpeed * _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveBackward))
+                //check for coll
+                tab = this.stopColision.update();
+                while (tab.length > 0) {
+                    this.player1.mesh.translateX(-((_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveBackward ^ _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveForward) * ((this.playerSpeed / 2) - this.playerSpeed * _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveBackward)))
+                    tab = this.stopColision.update();
+                }
             }
             if (_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveForward && !_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveRight && !_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveLeft) {
-                //check for coll
                 this.player1.mesh.translateX(this.playerSpeed)
+                //check for coll
+                while (this.stopColision.update().length > 0) {
+                    this.player1.mesh.translateX(-this.playerSpeed / 100)
+                }
             }
 
             if (_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveBackward && !_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveRight && !_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveLeft) {
                 this.player1.mesh.translateX(-this.playerSpeed)
                 //check for coll
+                while (this.stopColision.update().length > 0) {
+                    this.player1.mesh.translateX(this.playerSpeed / 100)
+                }
             }
         }
         if (!this.prevPos.equals(this.player1.mesh.position)) {
             this.socketHandler.sendData(this.player1.mesh.position)
-            this.prevPos = new three__WEBPACK_IMPORTED_MODULE_10__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
+            this.prevPos = new three__WEBPACK_IMPORTED_MODULE_12__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
         }
 
         if (!this.socketHandler.oplayer.pos.equals(this.player2.mesh.position)) {
             this.player2.mesh.position.set(this.socketHandler.oplayer.pos.x, this.socketHandler.oplayer.pos.y, this.socketHandler.oplayer.pos.z)
         }
+        // this.camera.position.set(this.player1.mesh.position.x, this.player1.mesh.position.y + 20, this.player1.mesh.position.z + 50) //kamera porusza sie za graczem
+        // this.camera.lookAt(this.player1.mesh.position)
         this.renderer.render(this.scene, this.camera);
         requestAnimationFrame(this.render.bind(this));
     }
+}
+
+
+/***/ }),
+
+/***/ "./src/components/Map.js":
+/*!*******************************!*\
+  !*** ./src/components/Map.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Mapblock)
+/* harmony export */ });
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+
+
+class Mapblock {
+    constructor(scene, pos_x, pos_y, pos_z, x, y, z, color) {
+        this.color = color;
+        this.mesh = new three__WEBPACK_IMPORTED_MODULE_0__.Mesh(
+            new three__WEBPACK_IMPORTED_MODULE_0__.BoxGeometry(x, y, z),
+            new three__WEBPACK_IMPORTED_MODULE_0__.MeshBasicMaterial({ color: color }),
+
+        )
+        this.mesh.position.x = pos_x;
+        this.mesh.position.y = pos_y + (this.mesh.geometry.parameters.height / 2 + 1);
+        this.mesh.position.z = pos_z
+        scene.add(this.mesh)
+    }
+
 }
 
 /***/ }),

@@ -59,7 +59,11 @@ io.on('connection', (socket) => {
     });
 
     socket.on('cords', (string) => {
-        console.log(string);
+        // console.log(string);
         io.emit("plmv", string)
     });
+    socket.on('end', (string) => {
+        console.log("KONIEC GRY wygrał gracz: ", string)
+        io.emit('end', string)
+    })
 });
