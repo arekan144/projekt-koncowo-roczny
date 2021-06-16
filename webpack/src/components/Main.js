@@ -15,6 +15,7 @@ import Collisions from './Collisions';
 import BoomAnim from './BoomAnim';
 import CustText from './CustText';
 import helvetike from "three/examples/fonts/helvetiker_regular.typeface.json"
+import OverScreen from './OverScreen';
 import { io } from "socket.io-client";
 
 export default class Main {
@@ -31,7 +32,7 @@ export default class Main {
             // console.log(response)
             this.num = response;
             this.socketHandler.num = this.num
-
+            this.socketHandler.time = new Date().getTime();
             // console.log(this.num)
             if (this.num < 2) {
 
@@ -49,10 +50,11 @@ export default class Main {
 
                 //////////
                 //przykład tekstu, żeby pokazywał się przy blokach brązowych i żółtych, pierwszy jest nad -- pytanie
-                let testText = new CustText("2+2", font, this.scene)
-                testText.text.position.set(-15, 55, -100) // zmieniamy tylko z!
-                let test2 = new CustText("1", font, this.scene)
-                test2.text.position.set(-50, 4, -90)
+                // let testText = new CustText("2+2", font, this.scene)
+                // testText.position.set(-15, 55, -100) // zmieniamy tylko z!
+                // let test2 = new CustText("1", font, this.scene)
+                // test2.text.position.set(-50, 4, -90)
+
                 // console.log(font)
                 // console.log("???")
                 // const geT = new TextGeometry('Hello three.js!', {
@@ -86,18 +88,18 @@ export default class Main {
                 this.player2 = new Player(this.scene, 0, 0, 0)
                 let sciana1 = new Mapblock(this.scene, -90, 0, -400, 20, 50, 1000, 'black', 'black') //bloki mapy, osx, osy, osz, szer, wys, dlug, kolor
                 let sciana2 = new Mapblock(this.scene, 90, 0, -400, 20, 50, 1000, 'black', 'black')
-                let mapblock3 = new Mapblock(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'yellow')
-                let mapblock4 = new Mapblock(this.scene, 0, 0, -100, 60, 50, 20, 'brown', 'brown')
-                let mapblock5 = new Mapblock(this.scene, 55, 0, -100, 50, 50, 20, 'yellow', 'yellow')
-                let mapblock6 = new Mapblock(this.scene, -55, 0, -300, 50, 50, 20, 'brown', 'brown')
-                let mapblock7 = new Mapblock(this.scene, 0, 0, -300, 60, 50, 20, 'yellow', 'yellow')
-                let mapblock8 = new Mapblock(this.scene, 55, 0, -300, 50, 50, 20, 'yellow', 'yellow')
-                let mapblock9 = new Mapblock(this.scene, -55, 0, -500, 50, 50, 20, 'brown', 'brown')
-                let mapblock10 = new Mapblock(this.scene, 0, 0, -500, 60, 50, 20, 'yellow', 'yellow')
-                let mapblock11 = new Mapblock(this.scene, 55, 0, -500, 50, 50, 20, 'yellow', 'yellow')
-                let mapblock12 = new Mapblock(this.scene, -55, 0, -700, 50, 50, 20, 'brown', 'brown')
-                let mapblock13 = new Mapblock(this.scene, 0, 0, -700, 60, 50, 20, 'yellow', 'yellow')
-                let mapblock14 = new Mapblock(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'yellow')
+                let mapblock3 = new Mapblock(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'yellow', { text: "3", font: font })
+                let mapblock4 = new Mapblock(this.scene, 0, 0, -100, 60, 50, 20, 'brown', 'brown', { text: "4", font: font })
+                let mapblock5 = new Mapblock(this.scene, 55, 0, -100, 50, 50, 20, 'yellow', 'yellow', { text: "5", font: font })
+                let mapblock6 = new Mapblock(this.scene, -55, 0, -300, 50, 50, 20, 'brown', 'brown', { text: "2", font: font })
+                let mapblock7 = new Mapblock(this.scene, 0, 0, -300, 60, 50, 20, 'yellow', 'yellow', { text: "4", font: font })
+                let mapblock8 = new Mapblock(this.scene, 55, 0, -300, 50, 50, 20, 'yellow', 'yellow', { text: "1", font: font })
+                let mapblock9 = new Mapblock(this.scene, -55, 0, -500, 50, 50, 20, 'brown', 'brown', { text: "4", font: font })
+                let mapblock10 = new Mapblock(this.scene, 0, 0, -500, 60, 50, 20, 'yellow', 'yellow', { text: "2", font: font })
+                let mapblock11 = new Mapblock(this.scene, 55, 0, -500, 50, 50, 20, 'yellow', 'yellow', { text: "8", font: font })
+                let mapblock12 = new Mapblock(this.scene, -55, 0, -700, 50, 50, 20, 'brown', 'brown', { text: "2", font: font })
+                let mapblock13 = new Mapblock(this.scene, 0, 0, -700, 60, 50, 20, 'yellow', 'yellow', { text: "1", font: font })
+                let mapblock14 = new Mapblock(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'yellow', { text: "3", font: font })
                 this.map = [
                     new Mapblock(this.scene, 0, 0, 100, 200, 50, 20, 'black', 'black'),
                     //bloki mapy,            osx, osy, osz, szer, wys, dlug, kolor
@@ -107,9 +109,10 @@ export default class Main {
                     mapblock6, mapblock7, mapblock8,
                     mapblock9, mapblock10, mapblock11,
                     mapblock12, mapblock13, mapblock14,
-                    new Mapblock(this.scene, 0, 0, -800, 25, 5, 25, 'green', 'green')
+                    new Mapblock(this.scene, 0, 0, -800, 60, 5, 25, 'green', 'green', { text: "FINISH", font: font })
                     //bloki mapy,            osx, osy, osz, szer, wys, dlug, kolor
-                ] // wstawmy to do jednej tablicy.
+                ]
+                // wstawmy to do jednej tablicy.
                 // console.log(this.map[16])
                 this.player2.mesh.material.color = new Color("red")
                 // this.camera.lookAt(this.player1.mesh.position)
@@ -122,17 +125,47 @@ export default class Main {
                 this.stopColision = new Collisions(walls, this.player1.mesh, this.scene)
                 let wrong = [];
                 let right = [];
+
+                let pytania = [
+                    '2+2',
+                    '8/4',
+                    '2^2',
+                    'log(4)/log(2)'
+                ]
+                let x = 0;
+                this.pytania = []
                 this.map.forEach(mapElement => {
-                    if (mapElement.typ == "yellow") {
-                        wrong.push(mapElement.mesh)
-                    }
-                    if (mapElement.typ == "brown") {
-                        right.push(mapElement.mesh)
+                    switch (mapElement.typ) {
+                        case "yellow":
+                            wrong.push(mapElement.mesh)
+                            if (mapElement.mesh.position.x == 0) {
+                                // console.log(mapElement.mesh.position)
+                                // mapElement.mesh.position.y = 55
+                                let a = new CustText(pytania[x++], font, this.scene)
+                                a.geometry.center()
+                                a.position.set(mapElement.mesh.position.x, 60, mapElement.mesh.position.z)
+                                this.pytania.push(a);
+                            }
+                            break;
+                        case "brown":
+                            right.push(mapElement.mesh)
+                            if (mapElement.mesh.position.x == 0) {
+                                console.log(mapElement.mesh.position)
+                                let a = new CustText(pytania[x++], font, this.scene)
+                                console.log([a.geometry.center()])
+                                a.position.set(mapElement.mesh.position.x, 60, mapElement.mesh.position.z)
+                                this.pytania.push(a);
+                            }
+                            break;
                     }
                 });
 
                 this.winBox = new Box3()
                 // console.log(this.map[16])
+                this.map[16].TextBlock.translateX(-30)
+                this.map[16].mesh.material.visible = false;
+                this.map[16].mesh.material.color.set("green");
+
                 this.winBox.setFromObject(this.map[16].mesh)
 
                 this.badColision = new Collisions(wrong, this.player1.mesh, this.scene)
@@ -149,8 +182,10 @@ export default class Main {
                 this.prevRot = new Vector3(this.player1.mesh.rotation.x, this.player1.mesh.rotation.y, this.player1.mesh.rotation.z)
 
                 this.expl = [];
-
+                // this.socketHandler.koniecGry = true;
                 this.render();
+
+
 
             } else {
                 console.log(this.num)
@@ -161,7 +196,7 @@ export default class Main {
         })
     }
 
-    render() {
+    render = async () => {
         let delta = this.clock.getDelta();
         // console.log("render leci")
         // this.camera.position.set(this.player1.mesh.position.x, 80, this.player1.mesh.position.z - 10)
@@ -268,7 +303,6 @@ export default class Main {
             // console.log(this.goodColision.meshBox.intersect(this.winBox))
             console.log("WIN")
             this.socketHandler.endGame();
-
         }
         this.camera.position.set(this.player1.mesh.position.x, this.player1.mesh.position.y + 20, this.player1.mesh.position.z + 50) //kamera porusza sie za graczem
         this.camera.lookAt(this.player1.mesh.position)
@@ -276,7 +310,11 @@ export default class Main {
         if (!this.socketHandler.koniecGry)
             requestAnimationFrame(this.render.bind(this));
         else {
-            console.log("Wygrał gracz: " + this.socketHandler.ktowygral)
+
+            console.log("Wygrał gracz: " + this.socketHandler.ktowygral.split("=")[0])
+            await this.socketHandler.laderBoard;
+            // console.log(new Date().getTime() - this.socketHandler.time)
+            new OverScreen(this.socketHandler.ktowygral.split("=")[0], this.socketHandler.ktowygral.split("=")[1])
         }
     }
 }

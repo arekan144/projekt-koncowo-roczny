@@ -370,7 +370,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n    margin: 0;\r\n    padding: 0;\r\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,SAAS;IACT,UAAU;AACd","sourcesContent":["body {\r\n    margin: 0;\r\n    padding: 0;\r\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n    margin: 0;\r\n    padding: 0;\r\n    overflow: hidden;\r\n    font-family: Arial, Helvetica, sans-serif;\r\n}\r\n.overlay {\r\n    width: 100vw;\r\n    height: 100vh;\r\n    overflow-y: auto;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    background-color: rgba(0, 0, 139, 0.452);\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n.endMain {\r\n    width: 70vw;\r\n    background-color: darkcyan;\r\n    height: 100vh;\r\n    display: flex;\r\n    \r\n    align-content: flex-start;\r\n    flex-flow:column;\r\n}\r\n.text {\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,SAAS;IACT,UAAU;IACV,gBAAgB;IAChB,yCAAyC;AAC7C;AACA;IACI,YAAY;IACZ,aAAa;IACb,gBAAgB;IAChB,kBAAkB;IAClB,MAAM;IACN,OAAO;IACP,wCAAwC;IACxC,aAAa;IACb,uBAAuB;AAC3B;AACA;IACI,WAAW;IACX,0BAA0B;IAC1B,aAAa;IACb,aAAa;;IAEb,yBAAyB;IACzB,gBAAgB;AACpB;AACA;IACI,WAAW;IACX,kBAAkB;AACtB","sourcesContent":["body {\r\n    margin: 0;\r\n    padding: 0;\r\n    overflow: hidden;\r\n    font-family: Arial, Helvetica, sans-serif;\r\n}\r\n.overlay {\r\n    width: 100vw;\r\n    height: 100vh;\r\n    overflow-y: auto;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    background-color: rgba(0, 0, 139, 0.452);\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n.endMain {\r\n    width: 70vw;\r\n    background-color: darkcyan;\r\n    height: 100vh;\r\n    display: flex;\r\n    \r\n    align-content: flex-start;\r\n    flex-flow:column;\r\n}\r\n.text {\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -55356,6 +55356,43 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/components/CustText.js":
+/*!************************************!*\
+  !*** ./src/components/CustText.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ CustText)
+/* harmony export */ });
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+
+
+class CustText extends three__WEBPACK_IMPORTED_MODULE_0__.Mesh {
+    constructor(text, font, scene) {
+        const geT = new three__WEBPACK_IMPORTED_MODULE_0__.TextGeometry(text, {
+            font: font,
+            size: 15,
+            height: 1,
+            curveSegments: 1,
+            bevelEnabled: true,
+            bevelThickness: 1,
+            bevelSize: 0.25,
+            bevelOffset: 0.25,
+            bevelSegments: 1
+        })
+        const meT = new three__WEBPACK_IMPORTED_MODULE_0__.MeshBasicMaterial({ color: "green", wireframe: false, })
+        
+        //tutaj jakbyco można zmienić kolor, itp.
+        super(geT, meT)
+        scene.add(this)
+    }
+}
+
+/***/ }),
+
 /***/ "./src/components/Floor.js":
 /*!*********************************!*\
   !*** ./src/components/Floor.js ***!
@@ -55446,7 +55483,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Main)
 /* harmony export */ });
-/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
 /* harmony import */ var _Renderer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Renderer */ "./src/components/Renderer.js");
 /* harmony import */ var _Camera__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Camera */ "./src/components/Camera.js");
 /* harmony import */ var _Ico__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Ico */ "./src/components/Ico.js");
@@ -55459,8 +55496,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Map__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Map */ "./src/components/Map.js");
 /* harmony import */ var _Collisions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Collisions */ "./src/components/Collisions.js");
 /* harmony import */ var _BoomAnim__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./BoomAnim */ "./src/components/BoomAnim.js");
-/* harmony import */ var three_examples_fonts_helvetiker_regular_typeface_json__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! three/examples/fonts/helvetiker_regular.typeface.json */ "./node_modules/three/examples/fonts/helvetiker_regular.typeface.json");
-/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/wrapper.mjs");
+/* harmony import */ var _CustText__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./CustText */ "./src/components/CustText.js");
+/* harmony import */ var three_examples_fonts_helvetiker_regular_typeface_json__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! three/examples/fonts/helvetiker_regular.typeface.json */ "./node_modules/three/examples/fonts/helvetiker_regular.typeface.json");
+/* harmony import */ var _OverScreen__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./OverScreen */ "./src/components/OverScreen.js");
+/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/wrapper.mjs");
+
+
 
 
 
@@ -55481,78 +55522,86 @@ __webpack_require__.r(__webpack_exports__);
 
 class Main {
     constructor(container) {
-        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_12__.io)("ws://localhost:3000"))
+        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_14__.io)("ws://localhost:3000"))
         this.container = container;
         this.koniecGry = false;
         this.init();
     }
     init = async () => { // naprawienie tego sprawdzania, żeby tylko na jednym oknie w jednej przeglądarce
-        const font = (0,three__WEBPACK_IMPORTED_MODULE_13__.Font)(three_examples_fonts_helvetiker_regular_typeface_json__WEBPACK_IMPORTED_MODULE_14__)
+        const font = new three__WEBPACK_IMPORTED_MODULE_15__.Font(three_examples_fonts_helvetiker_regular_typeface_json__WEBPACK_IMPORTED_MODULE_16__)
         console.log("ee")
         this.socketHandler.num.then((response) => {
             // console.log(response)
             this.num = response;
             this.socketHandler.num = this.num
-
+            this.socketHandler.time = new Date().getTime();
             // console.log(this.num)
             if (this.num < 2) {
 
                 //////////
 
-                this.scene = new three__WEBPACK_IMPORTED_MODULE_13__.Scene();
+                this.scene = new three__WEBPACK_IMPORTED_MODULE_15__.Scene();
                 this.renderer = new _Renderer__WEBPACK_IMPORTED_MODULE_0__.default(this.scene, this.container);
                 this.camera = new _Camera__WEBPACK_IMPORTED_MODULE_1__.default(this.renderer);
 
                 //////////
 
-                this.clock = new three__WEBPACK_IMPORTED_MODULE_13__.Clock();
-                this.manager = new three__WEBPACK_IMPORTED_MODULE_13__.LoadingManager();
+                this.clock = new three__WEBPACK_IMPORTED_MODULE_15__.Clock();
+                this.manager = new three__WEBPACK_IMPORTED_MODULE_15__.LoadingManager();
                 this.playerControl = new _PlayerControl__WEBPACK_IMPORTED_MODULE_6__.default();
 
                 //////////
-                console.log(font)
-                console.log("???")
-                const geometry = new three__WEBPACK_IMPORTED_MODULE_13__.TextGeometry('Hello three.js!', {
-                    font: font,
-                    size: 80,
-                    height: 5,
-                    curveSegments: 12,
-                    bevelEnabled: true,
-                    bevelThickness: 10,
-                    bevelSize: 8,
-                    bevelOffset: 0,
-                    bevelSegments: 5
-                })
+                //przykład tekstu, żeby pokazywał się przy blokach brązowych i żółtych, pierwszy jest nad -- pytanie
+                // let testText = new CustText("2+2", font, this.scene)
+                // testText.position.set(-15, 55, -100) // zmieniamy tylko z!
+                // let test2 = new CustText("1", font, this.scene)
+                // test2.text.position.set(-50, 4, -90)
 
+                // console.log(font)
+                // console.log("???")
+                // const geT = new TextGeometry('Hello three.js!', {
+                //     font: font,
+                //     size: 15,
+                //     height: 1,
+                //     curveSegments: 1,
+                //     bevelEnabled: true,
+                //     bevelThickness: 1,
+                //     bevelSize: 0.25,
+                //     bevelOffset: 0.25,
+                //     bevelSegments: 1
+                // })
+                // const meT = new MeshPhongMaterial({ color: "red", wireframe: true, })
+                // let text = new Mesh(geT, meT)
+                // this.scene.add(text)
                 // this.scene.add(text)
                 //////////
 
 
-                const grid = new three__WEBPACK_IMPORTED_MODULE_13__.GridHelper(200, 20, "red")
+                const grid = new three__WEBPACK_IMPORTED_MODULE_15__.GridHelper(200, 20, "red")
                 grid.translateY(1)
 
                 this.scene.add(grid)
                 this.floor = new _Floor__WEBPACK_IMPORTED_MODULE_3__.default(this.scene)
                 this.floor.add(0, "lightgrey", -1)
-                this.ambientLight = new three__WEBPACK_IMPORTED_MODULE_13__.AmbientLight("white", 0.5)
+                this.ambientLight = new three__WEBPACK_IMPORTED_MODULE_15__.AmbientLight("white", 0.5)
                 this.skyBox = new _Skybox__WEBPACK_IMPORTED_MODULE_4__.default(this.scene);
                 this.scene.add(this.ambientLight)
                 this.player1 = new _Player__WEBPACK_IMPORTED_MODULE_5__.default(this.scene, 0, 0, 0)
                 this.player2 = new _Player__WEBPACK_IMPORTED_MODULE_5__.default(this.scene, 0, 0, 0)
                 let sciana1 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -90, 0, -400, 20, 50, 1000, 'black', 'black') //bloki mapy, osx, osy, osz, szer, wys, dlug, kolor
                 let sciana2 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 90, 0, -400, 20, 50, 1000, 'black', 'black')
-                let mapblock3 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'yellow')
-                let mapblock4 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -100, 60, 50, 20, 'brown', 'brown')
-                let mapblock5 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -100, 50, 50, 20, 'yellow', 'yellow')
-                let mapblock6 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -300, 50, 50, 20, 'brown', 'brown')
-                let mapblock7 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -300, 60, 50, 20, 'yellow', 'yellow')
-                let mapblock8 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -300, 50, 50, 20, 'yellow', 'yellow')
-                let mapblock9 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -500, 50, 50, 20, 'brown', 'brown')
-                let mapblock10 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -500, 60, 50, 20, 'yellow', 'yellow')
-                let mapblock11 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -500, 50, 50, 20, 'yellow', 'yellow')
-                let mapblock12 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -700, 50, 50, 20, 'brown', 'brown')
-                let mapblock13 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -700, 60, 50, 20, 'yellow', 'yellow')
-                let mapblock14 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'yellow')
+                let mapblock3 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'yellow', { text: "3", font: font })
+                let mapblock4 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -100, 60, 50, 20, 'brown', 'brown', { text: "4", font: font })
+                let mapblock5 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -100, 50, 50, 20, 'yellow', 'yellow', { text: "5", font: font })
+                let mapblock6 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -300, 50, 50, 20, 'brown', 'brown', { text: "2", font: font })
+                let mapblock7 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -300, 60, 50, 20, 'yellow', 'yellow', { text: "4", font: font })
+                let mapblock8 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -300, 50, 50, 20, 'yellow', 'yellow', { text: "1", font: font })
+                let mapblock9 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -500, 50, 50, 20, 'brown', 'brown', { text: "4", font: font })
+                let mapblock10 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -500, 60, 50, 20, 'yellow', 'yellow', { text: "2", font: font })
+                let mapblock11 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -500, 50, 50, 20, 'yellow', 'yellow', { text: "8", font: font })
+                let mapblock12 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -700, 50, 50, 20, 'brown', 'brown', { text: "2", font: font })
+                let mapblock13 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -700, 60, 50, 20, 'yellow', 'yellow', { text: "1", font: font })
+                let mapblock14 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'yellow', { text: "3", font: font })
                 this.map = [
                     new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, 100, 200, 50, 20, 'black', 'black'),
                     //bloki mapy,            osx, osy, osz, szer, wys, dlug, kolor
@@ -55562,14 +55611,15 @@ class Main {
                     mapblock6, mapblock7, mapblock8,
                     mapblock9, mapblock10, mapblock11,
                     mapblock12, mapblock13, mapblock14,
-                    new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -800, 25, 5, 25, 'green', 'green')
+                    new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -800, 60, 5, 25, 'green', 'green', { text: "FINISH", font: font })
                     //bloki mapy,            osx, osy, osz, szer, wys, dlug, kolor
-                ] // wstawmy to do jednej tablicy.
+                ]
+                // wstawmy to do jednej tablicy.
                 // console.log(this.map[16])
-                this.player2.mesh.material.color = new three__WEBPACK_IMPORTED_MODULE_13__.Color("red")
+                this.player2.mesh.material.color = new three__WEBPACK_IMPORTED_MODULE_15__.Color("red")
                 // this.camera.lookAt(this.player1.mesh.position)
 
-                this.socketHandler.oplayer = { pos: new three__WEBPACK_IMPORTED_MODULE_13__.Vector3(this.player2.mesh.position.x, this.player2.mesh.position.y, this.player2.mesh.position.z), rot: new three__WEBPACK_IMPORTED_MODULE_13__.Vector3(this.player2.mesh.rotation.x, this.player2.mesh.rotation.y, this.player2.mesh.rotation.z) }
+                this.socketHandler.oplayer = { pos: new three__WEBPACK_IMPORTED_MODULE_15__.Vector3(this.player2.mesh.position.x, this.player2.mesh.position.y, this.player2.mesh.position.z), rot: new three__WEBPACK_IMPORTED_MODULE_15__.Vector3(this.player2.mesh.rotation.x, this.player2.mesh.rotation.y, this.player2.mesh.rotation.z) }
                 // const controls = new OrbitControls(this.camera, this.renderer.domElement)
                 //jeżeli kamera podąża to usuńmy to ^
                 let walls = [this.map[0].mesh, this.map[1].mesh, this.map[2].mesh, this.map[3].mesh]
@@ -55577,17 +55627,47 @@ class Main {
                 this.stopColision = new _Collisions__WEBPACK_IMPORTED_MODULE_10__.default(walls, this.player1.mesh, this.scene)
                 let wrong = [];
                 let right = [];
+
+                let pytania = [
+                    '2+2',
+                    '8/4',
+                    '2^2',
+                    'log(4)/log(2)'
+                ]
+                let x = 0;
+                this.pytania = []
                 this.map.forEach(mapElement => {
-                    if (mapElement.typ == "yellow") {
-                        wrong.push(mapElement.mesh)
-                    }
-                    if (mapElement.typ == "brown") {
-                        right.push(mapElement.mesh)
+                    switch (mapElement.typ) {
+                        case "yellow":
+                            wrong.push(mapElement.mesh)
+                            if (mapElement.mesh.position.x == 0) {
+                                // console.log(mapElement.mesh.position)
+                                // mapElement.mesh.position.y = 55
+                                let a = new _CustText__WEBPACK_IMPORTED_MODULE_12__.default(pytania[x++], font, this.scene)
+                                a.geometry.center()
+                                a.position.set(mapElement.mesh.position.x, 60, mapElement.mesh.position.z)
+                                this.pytania.push(a);
+                            }
+                            break;
+                        case "brown":
+                            right.push(mapElement.mesh)
+                            if (mapElement.mesh.position.x == 0) {
+                                console.log(mapElement.mesh.position)
+                                let a = new _CustText__WEBPACK_IMPORTED_MODULE_12__.default(pytania[x++], font, this.scene)
+                                console.log([a.geometry.center()])
+                                a.position.set(mapElement.mesh.position.x, 60, mapElement.mesh.position.z)
+                                this.pytania.push(a);
+                            }
+                            break;
                     }
                 });
 
-                this.winBox = new three__WEBPACK_IMPORTED_MODULE_13__.Box3()
+                this.winBox = new three__WEBPACK_IMPORTED_MODULE_15__.Box3()
                 // console.log(this.map[16])
+                this.map[16].TextBlock.translateX(-30)
+                this.map[16].mesh.material.visible = false;
+                this.map[16].mesh.material.color.set("green");
+
                 this.winBox.setFromObject(this.map[16].mesh)
 
                 this.badColision = new _Collisions__WEBPACK_IMPORTED_MODULE_10__.default(wrong, this.player1.mesh, this.scene)
@@ -55600,12 +55680,14 @@ class Main {
 
                 this.player1.mesh.rotation.y += Math.PI / 2
                 this.playerSpeed = 2;
-                this.prevPos = new three__WEBPACK_IMPORTED_MODULE_13__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
-                this.prevRot = new three__WEBPACK_IMPORTED_MODULE_13__.Vector3(this.player1.mesh.rotation.x, this.player1.mesh.rotation.y, this.player1.mesh.rotation.z)
+                this.prevPos = new three__WEBPACK_IMPORTED_MODULE_15__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
+                this.prevRot = new three__WEBPACK_IMPORTED_MODULE_15__.Vector3(this.player1.mesh.rotation.x, this.player1.mesh.rotation.y, this.player1.mesh.rotation.z)
 
                 this.expl = [];
-
+                // this.socketHandler.koniecGry = true;
                 this.render();
+
+
 
             } else {
                 console.log(this.num)
@@ -55616,7 +55698,7 @@ class Main {
         })
     }
 
-    render() {
+    render = async () => {
         let delta = this.clock.getDelta();
         // console.log("render leci")
         // this.camera.position.set(this.player1.mesh.position.x, 80, this.player1.mesh.position.z - 10)
@@ -55704,8 +55786,8 @@ class Main {
         });
         if (!this.prevPos.equals(this.player1.mesh.position) || this.prevRot.y != this.player1.mesh.rotation.y) {
             this.socketHandler.sendData(this.player1.mesh.position, this.player1.mesh.rotation)
-            this.prevPos = new three__WEBPACK_IMPORTED_MODULE_13__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
-            this.prevRot = new three__WEBPACK_IMPORTED_MODULE_13__.Vector3(this.player1.mesh.rotation.x, this.player1.mesh.rotation.y, this.player1.mesh.rotation.z)
+            this.prevPos = new three__WEBPACK_IMPORTED_MODULE_15__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
+            this.prevRot = new three__WEBPACK_IMPORTED_MODULE_15__.Vector3(this.player1.mesh.rotation.x, this.player1.mesh.rotation.y, this.player1.mesh.rotation.z)
         }
         // console.log(this.socketHandler.oplayer)
         // console.log(this.socketHandler.oplayer.rot.x)
@@ -55716,14 +55798,13 @@ class Main {
         }
 
         // this.goodColision.update();
-        let p1box3 = new three__WEBPACK_IMPORTED_MODULE_13__.Box3();
+        let p1box3 = new three__WEBPACK_IMPORTED_MODULE_15__.Box3();
         p1box3.setFromObject(this.player1.mesh)
         // console.log(this.winBox)
         if (p1box3.intersectsBox(this.winBox)) {
             // console.log(this.goodColision.meshBox.intersect(this.winBox))
             console.log("WIN")
             this.socketHandler.endGame();
-
         }
         this.camera.position.set(this.player1.mesh.position.x, this.player1.mesh.position.y + 20, this.player1.mesh.position.z + 50) //kamera porusza sie za graczem
         this.camera.lookAt(this.player1.mesh.position)
@@ -55731,7 +55812,11 @@ class Main {
         if (!this.socketHandler.koniecGry)
             requestAnimationFrame(this.render.bind(this));
         else {
-            console.log("Wygrał gracz: " + this.socketHandler.ktowygral)
+
+            console.log("Wygrał gracz: " + this.socketHandler.ktowygral.split("=")[0])
+            await this.socketHandler.laderBoard;
+            // console.log(new Date().getTime() - this.socketHandler.time)
+            new _OverScreen__WEBPACK_IMPORTED_MODULE_13__.default(this.socketHandler.ktowygral.split("=")[0], this.socketHandler.ktowygral.split("=")[1])
         }
     }
 }
@@ -55750,20 +55835,90 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Mapblock)
 /* harmony export */ });
-/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var _CustText__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CustText */ "./src/components/CustText.js");
+
 
 
 class Mapblock {
-    constructor(scene, pos_x, pos_y, pos_z, x, y, z, c, color) {
+    constructor(scene, pos_x, pos_y, pos_z, x, y, z, c, color, txtV) {
+        // if (txtV)
+        //     const { text, font } = txtV;
         this.typ = c; //zmienna która rozróżnia nam bloki
-        this.mesh = new three__WEBPACK_IMPORTED_MODULE_0__.Mesh(
-            new three__WEBPACK_IMPORTED_MODULE_0__.BoxGeometry(x, y, z),
-            new three__WEBPACK_IMPORTED_MODULE_0__.MeshBasicMaterial({ color: color }),
+        this.mesh = new three__WEBPACK_IMPORTED_MODULE_1__.Mesh(
+            new three__WEBPACK_IMPORTED_MODULE_1__.BoxGeometry(x, y, z),
+            new three__WEBPACK_IMPORTED_MODULE_1__.MeshBasicMaterial({ color: color }),
         )
+
         this.mesh.position.x = pos_x;
         this.mesh.position.y = pos_y + (this.mesh.geometry.parameters.height / 2 + 1);
         this.mesh.position.z = pos_z
+
+        if (txtV) {
+            const { text, font } = txtV;
+            this.TextBlock = new _CustText__WEBPACK_IMPORTED_MODULE_0__.default(text, font, scene)
+            this.TextBlock.position.set(this.mesh.position.x, 1, this.mesh.position.z + 10)
+        }
+
         scene.add(this.mesh)
+    }
+
+}
+
+/***/ }),
+
+/***/ "./src/components/OverScreen.js":
+/*!**************************************!*\
+  !*** ./src/components/OverScreen.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ OverScreen)
+/* harmony export */ });
+class OverScreen {
+    constructor(wygral, czas) {
+        this.wygral = wygral;
+
+        czas = eval(czas)
+        let min = new Date(czas).getMinutes();
+        if (min < 10)
+            min = "0" + min;
+        let sec = new Date(czas).getSeconds();
+        if (sec < 10)
+            sec = "0" + sec
+        let mil = new Date(czas).getMilliseconds();
+        if (mil < 100) {
+            if (mil < 10) {
+                mil = "0" + mil;
+            }
+            mil = "0" + mil;
+        }
+
+        this.Wczas = `${min}:${sec}:${mil}`;
+        this.overlay = document.createElement("div");
+        this.overlay.classList.add("overlay")
+        document.body.appendChild(this.overlay);
+        this.init();
+    }
+    init() {
+        let main = document.createElement("div");
+        main.classList.add('endMain')
+
+        let KoniecText = document.createElement("div");
+        KoniecText.innerText = "KONIEC GRY!";
+        KoniecText.classList.add("text")
+        KoniecText.style.fontSize = "4em"
+        KoniecText.style.marginTop = "1em"
+        let container = document.createElement("div");
+        let KtoWygral = document.createElement("div");
+        KtoWygral.innerText = `Wygrał gracz o numerze: ${this.wygral} \n z czasem: ${this.Wczas}.\n Brawo!`;
+        KtoWygral.classList.add("text")
+        container.append(KtoWygral)
+        main.append(KoniecText, container)
+        this.overlay.appendChild(main)
     }
 
 }
@@ -56006,6 +56161,8 @@ class SocketHandler {
         this.oplayer = {}
         this.oplayer.pos = null;
         this.oplayer.rot = null;
+        this.ktowygral = "";
+        this.time = 0;
         console.log(this.oplayer)
         this.koniecGry = false
         // this.data = null;
@@ -56041,13 +56198,20 @@ class SocketHandler {
         this.socket.on('end', (data) => {
             this.ktowygral = data;
             this.koniecGry = true;
+            this.socket.emit('getlad');
+        })
+        this.laderBoard = new Promise((resolve, reject) => {
+            this.socket.on('ladeboard', (data) => {
+                this.ladData = data;
+                resolve("ok");
+            })
         })
     }
     sendData(string, nd) {
         this.socket.emit("cords", this.userID + ":" + this.num + "=" + JSON.stringify(string) + "=" + JSON.stringify(nd))
     }
     endGame() {
-        this.socket.emit("end", this.num)
+        this.socket.emit("end", this.userID + ":" + this.num + "=" + (new Date().getTime() - this.time))
     }
 
 }

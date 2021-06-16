@@ -3,7 +3,11 @@ const bodyParser = require("body-parser")
 const path = require("path");
 const socketIO = require("socket.io");
 const get = require("./routers/get.js");
-const INDEX = '/index.html';
+const databaseMathods = require('./modules/database.js')
+
+// const INDEX = '/index.html';
+
+const wyniki = databaseMathods.newDataBase("wyniki")
 
 const PORT = process.env.PORT || 3000;
 const server = express()
@@ -64,6 +68,14 @@ io.on('connection', (socket) => {
     });
     socket.on('end', (string) => {
         console.log("KONIEC GRY wygrał gracz: ", string)
+        let nick = string.split("=")[0];
+        let data = string.split("=")[1];
+        data = eval(data);
+        databaseMathods.insertInto(wyniki, { nick: nick, czas: data })
         io.emit('end', string)
+    })
+    socket.on('getlad', async () => {
+        let data = await databaseMathods.readAllFrom(wyniki)
+        socket.emit('ladeboard', data)
     })
 });

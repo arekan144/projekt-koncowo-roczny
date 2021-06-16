@@ -1,6 +1,6 @@
 import { Mesh, MeshBasicMaterial, TextGeometry } from "three"
 
-export default class CustText {
+export default class CustText extends Mesh {
     constructor(text, font, scene) {
         const geT = new TextGeometry(text, {
             font: font,
@@ -13,9 +13,10 @@ export default class CustText {
             bevelOffset: 0.25,
             bevelSegments: 1
         })
-        const meT = new MeshBasicMaterial({ color: "red", wireframe: true, })
+        const meT = new MeshBasicMaterial({ color: "green", wireframe: false, })
+        
         //tutaj jakbyco można zmienić kolor, itp.
-        this.text = new Mesh(geT, meT)
-        scene.add(this.text)
+        super(geT, meT)
+        scene.add(this)
     }
 }

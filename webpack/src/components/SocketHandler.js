@@ -6,6 +6,8 @@ export default class SocketHandler {
         this.oplayer = {}
         this.oplayer.pos = null;
         this.oplayer.rot = null;
+        this.ktowygral = "";
+        this.time = 0;
         console.log(this.oplayer)
         this.koniecGry = false
         // this.data = null;
@@ -41,13 +43,20 @@ export default class SocketHandler {
         this.socket.on('end', (data) => {
             this.ktowygral = data;
             this.koniecGry = true;
+            this.socket.emit('getlad');
+        })
+        this.laderBoard = new Promise((resolve, reject) => {
+            this.socket.on('ladeboard', (data) => {
+                this.ladData = data;
+                resolve("ok");
+            })
         })
     }
     sendData(string, nd) {
         this.socket.emit("cords", this.userID + ":" + this.num + "=" + JSON.stringify(string) + "=" + JSON.stringify(nd))
     }
     endGame() {
-        this.socket.emit("end", this.num)
+        this.socket.emit("end", this.userID + ":" + this.num + "=" + (new Date().getTime() - this.time))
     }
 
 }
