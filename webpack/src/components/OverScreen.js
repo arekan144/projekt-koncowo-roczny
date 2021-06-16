@@ -1,6 +1,7 @@
 export default class OverScreen {
-    constructor(wygral, czas, tablicaWynikow) {
+    constructor(wygral, czas, tablicaWynikow, wygrales) {
         this.wygral = wygral;
+        this.wygralesTy = wygrales
         this.czas = czas
         this.tablicaWynikow = tablicaWynikow;
         czas = eval(czas)
@@ -35,7 +36,12 @@ export default class OverScreen {
         KoniecText.style.marginTop = "1em"
         let container = document.createElement("div");
         let KtoWygral = document.createElement("div");
-        KtoWygral.innerText = `Wygrał gracz o numerze: ${this.wygral} \n z czasem: ${this.Wczas}.\n Brawo!`;
+        KtoWygral.innerText = `Wygrał gracz o numerze: ${this.wygral} \n z czasem: ${this.Wczas}!`;
+        if (!this.wygralesTy) {
+            KtoWygral.innerText += `\nPowodzenia następnym razem!`
+        } else {
+            KtoWygral.innerText += `\nBrawo ty!`
+        }
         KtoWygral.classList.add("text")
         let TablicaWynikow = document.createElement("div")
         TablicaWynikow.classList.add("tablica")
@@ -62,7 +68,7 @@ export default class OverScreen {
             }
 
             d.innerHTML = `<div style="display:inline-block; width:100px; margin-right:10px;">${el.nick}</div> ${min}:${sec}:${mil}`
-            if (el.nick == this.wygral && el.czas == this.czas) {
+            if (el.nick == this.wygral && el.czas == this.czas && this.wygralesTy) {
                 d.style.color = "orange"
             }
             TablicaWynikow.appendChild(d)

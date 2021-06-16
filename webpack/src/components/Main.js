@@ -88,18 +88,18 @@ export default class Main {
                 this.player2 = new Player(this.scene, 0, 0, 0)
                 let sciana1 = new Mapblock(this.scene, -90, 0, -400, 20, 50, 1000, 'black', 'black') //bloki mapy, osx, osy, osz, szer, wys, dlug, kolor
                 let sciana2 = new Mapblock(this.scene, 90, 0, -400, 20, 50, 1000, 'black', 'black')
-                let mapblock3 = new Mapblock(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'yellow', { text: "3", font: font })
-                let mapblock4 = new Mapblock(this.scene, 0, 0, -100, 60, 50, 20, 'brown', 'brown', { text: "4", font: font })
-                let mapblock5 = new Mapblock(this.scene, 55, 0, -100, 50, 50, 20, 'yellow', 'yellow', { text: "5", font: font })
-                let mapblock6 = new Mapblock(this.scene, -55, 0, -300, 50, 50, 20, 'brown', 'brown', { text: "2", font: font })
-                let mapblock7 = new Mapblock(this.scene, 0, 0, -300, 60, 50, 20, 'yellow', 'yellow', { text: "4", font: font })
-                let mapblock8 = new Mapblock(this.scene, 55, 0, -300, 50, 50, 20, 'yellow', 'yellow', { text: "1", font: font })
-                let mapblock9 = new Mapblock(this.scene, -55, 0, -500, 50, 50, 20, 'brown', 'brown', { text: "4", font: font })
-                let mapblock10 = new Mapblock(this.scene, 0, 0, -500, 60, 50, 20, 'yellow', 'yellow', { text: "2", font: font })
-                let mapblock11 = new Mapblock(this.scene, 55, 0, -500, 50, 50, 20, 'yellow', 'yellow', { text: "8", font: font })
-                let mapblock12 = new Mapblock(this.scene, -55, 0, -700, 50, 50, 20, 'brown', 'brown', { text: "2", font: font })
-                let mapblock13 = new Mapblock(this.scene, 0, 0, -700, 60, 50, 20, 'yellow', 'yellow', { text: "1", font: font })
-                let mapblock14 = new Mapblock(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'yellow', { text: "3", font: font })
+                let mapblock3 = new Mapblock(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font })
+                let mapblock4 = new Mapblock(this.scene, 0, 0, -100, 60, 50, 20, 'brown', 'grey', { text: "4", font: font })
+                let mapblock5 = new Mapblock(this.scene, 55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "5", font: font })
+                let mapblock6 = new Mapblock(this.scene, -55, 0, -300, 50, 50, 20, 'brown', 'grey', { text: "2", font: font })
+                let mapblock7 = new Mapblock(this.scene, 0, 0, -300, 60, 50, 20, 'yellow', 'grey', { text: "4", font: font })
+                let mapblock8 = new Mapblock(this.scene, 55, 0, -300, 50, 50, 20, 'yellow', 'grey', { text: "1", font: font })
+                let mapblock9 = new Mapblock(this.scene, -55, 0, -500, 50, 50, 20, 'brown', 'grey', { text: "4", font: font })
+                let mapblock10 = new Mapblock(this.scene, 0, 0, -500, 60, 50, 20, 'yellow', 'grey', { text: "2", font: font })
+                let mapblock11 = new Mapblock(this.scene, 55, 0, -500, 50, 50, 20, 'yellow', 'grey', { text: "8", font: font })
+                let mapblock12 = new Mapblock(this.scene, -55, 0, -700, 50, 50, 20, 'brown', 'grey', { text: "2", font: font })
+                let mapblock13 = new Mapblock(this.scene, 0, 0, -700, 60, 50, 20, 'yellow', 'grey', { text: "1", font: font })
+                let mapblock14 = new Mapblock(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font })
                 this.map = [
                     new Mapblock(this.scene, 0, 0, 100, 200, 50, 20, 'black', 'black'),
                     //bloki mapy,            osx, osy, osz, szer, wys, dlug, kolor
@@ -317,7 +317,7 @@ export default class Main {
             await this.socketHandler.laderBoard;
             // console.table(this.socketHandler.ladData)
             // console.log(new Date().getTime() - this.socketHandler.time)
-            new OverScreen(this.socketHandler.ktowygral.split("=")[0], this.socketHandler.ktowygral.split("=")[1], this.socketHandler.ladData)
+            new OverScreen(this.socketHandler.ktowygral.split("=")[0], this.socketHandler.ktowygral.split("=")[1], this.socketHandler.ladData, this.socketHandler.ktowygral.split("=")[0] == this.socketHandler.userID + ":" + this.socketHandler.num)
         }
     }
 }
