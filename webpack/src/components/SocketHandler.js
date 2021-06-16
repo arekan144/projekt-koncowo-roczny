@@ -8,7 +8,8 @@ export default class SocketHandler {
         this.oplayer.rot = null;
         this.ktowygral = "";
         this.time = 0;
-        console.log(this.oplayer)
+        this.wyslane = false;
+        // console.log(this.oplayer)
         this.koniecGry = false
         // this.data = null;
         if (localStorage.getItem("userID") == null) {
@@ -17,11 +18,12 @@ export default class SocketHandler {
         } else {
             this.userID = localStorage.getItem("userID")
         }
-        console.log(this.userID)
+        // console.log(this.userID)
+
         this.socket.emit('getnum', this.userID);
         this.num = new Promise((resolve, reject) => {
-            socket.on('getnumres', (data) => {
-                console.log(data, "dud")
+            this.socket.on('getnumres', (data) => {
+                console.log(data, "twój numer")
                 resolve(data)
             })
         })
@@ -56,7 +58,9 @@ export default class SocketHandler {
         this.socket.emit("cords", this.userID + ":" + this.num + "=" + JSON.stringify(string) + "=" + JSON.stringify(nd))
     }
     endGame() {
-        this.socket.emit("end", this.userID + ":" + this.num + "=" + (new Date().getTime() - this.time))
+        if (!this.wyslane)
+            this.socket.emit("end", this.userID + ":" + this.num + "=" + (new Date().getTime() - this.time))
+        this.wyslane = true;
     }
 
 }

@@ -27,7 +27,7 @@ export default class Main {
     }
     init = async () => { // naprawienie tego sprawdzania, żeby tylko na jednym oknie w jednej przeglądarce
         const font = new Font(helvetike)
-        console.log("ee")
+        // console.log("ee")
         this.socketHandler.num.then((response) => {
             // console.log(response)
             this.num = response;
@@ -150,9 +150,10 @@ export default class Main {
                         case "brown":
                             right.push(mapElement.mesh)
                             if (mapElement.mesh.position.x == 0) {
-                                console.log(mapElement.mesh.position)
+                                // console.log(mapElement.mesh.position)
                                 let a = new CustText(pytania[x++], font, this.scene)
-                                console.log([a.geometry.center()])
+                                // console.log([])
+                                a.geometry.center()
                                 a.position.set(mapElement.mesh.position.x, 60, mapElement.mesh.position.z)
                                 this.pytania.push(a);
                             }
@@ -265,11 +266,11 @@ export default class Main {
                 this.expl.push(new BoomAnim(spr[0].position, this.scene));
                 setTimeout(() => {
                     this.expl.push(new BoomAnim(spr[0].position, this.scene));
-                    console.log("?")
+                    // console.log("?")
                 }, 100)
                 setTimeout(() => {
                     this.expl.push(new BoomAnim(spr[0].position, this.scene));
-                    console.log("?")
+                    // console.log("?")
                 }, 200)
                 spr[0].material.visible = false; //musi być!
                 this.scene.remove(spr[0])
@@ -312,9 +313,11 @@ export default class Main {
         else {
 
             console.log("Wygrał gracz: " + this.socketHandler.ktowygral.split("=")[0])
+
             await this.socketHandler.laderBoard;
+            // console.table(this.socketHandler.ladData)
             // console.log(new Date().getTime() - this.socketHandler.time)
-            new OverScreen(this.socketHandler.ktowygral.split("=")[0], this.socketHandler.ktowygral.split("=")[1])
+            new OverScreen(this.socketHandler.ktowygral.split("=")[0], this.socketHandler.ktowygral.split("=")[1], this.socketHandler.ladData)
         }
     }
 }

@@ -370,7 +370,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n    margin: 0;\r\n    padding: 0;\r\n    overflow: hidden;\r\n    font-family: Arial, Helvetica, sans-serif;\r\n}\r\n.overlay {\r\n    width: 100vw;\r\n    height: 100vh;\r\n    overflow-y: auto;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    background-color: rgba(0, 0, 139, 0.452);\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n.endMain {\r\n    width: 70vw;\r\n    background-color: darkcyan;\r\n    height: 100vh;\r\n    display: flex;\r\n    \r\n    align-content: flex-start;\r\n    flex-flow:column;\r\n}\r\n.text {\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,SAAS;IACT,UAAU;IACV,gBAAgB;IAChB,yCAAyC;AAC7C;AACA;IACI,YAAY;IACZ,aAAa;IACb,gBAAgB;IAChB,kBAAkB;IAClB,MAAM;IACN,OAAO;IACP,wCAAwC;IACxC,aAAa;IACb,uBAAuB;AAC3B;AACA;IACI,WAAW;IACX,0BAA0B;IAC1B,aAAa;IACb,aAAa;;IAEb,yBAAyB;IACzB,gBAAgB;AACpB;AACA;IACI,WAAW;IACX,kBAAkB;AACtB","sourcesContent":["body {\r\n    margin: 0;\r\n    padding: 0;\r\n    overflow: hidden;\r\n    font-family: Arial, Helvetica, sans-serif;\r\n}\r\n.overlay {\r\n    width: 100vw;\r\n    height: 100vh;\r\n    overflow-y: auto;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    background-color: rgba(0, 0, 139, 0.452);\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n.endMain {\r\n    width: 70vw;\r\n    background-color: darkcyan;\r\n    height: 100vh;\r\n    display: flex;\r\n    \r\n    align-content: flex-start;\r\n    flex-flow:column;\r\n}\r\n.text {\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\r\n    margin: 0;\r\n    padding: 0;\r\n    overflow: hidden;\r\n    font-family: Arial, Helvetica, sans-serif;\r\n}\r\n.overlay {\r\n    width: 100vw;\r\n    height: 100vh;\r\n    overflow-y: auto;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    background-color: rgba(0, 0, 139, 0.452);\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n.endMain {\r\n    width: 70vw;\r\n    background-color: darkcyan;\r\n    height: 100vh;\r\n    display: flex;\r\n    \r\n    align-content: flex-start;\r\n    flex-flow:column;\r\n}\r\n.text {\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n.tablica {\r\n    width: 80%;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,SAAS;IACT,UAAU;IACV,gBAAgB;IAChB,yCAAyC;AAC7C;AACA;IACI,YAAY;IACZ,aAAa;IACb,gBAAgB;IAChB,kBAAkB;IAClB,MAAM;IACN,OAAO;IACP,wCAAwC;IACxC,aAAa;IACb,uBAAuB;AAC3B;AACA;IACI,WAAW;IACX,0BAA0B;IAC1B,aAAa;IACb,aAAa;;IAEb,yBAAyB;IACzB,gBAAgB;AACpB;AACA;IACI,WAAW;IACX,kBAAkB;AACtB;AACA;IACI,UAAU;AACd","sourcesContent":["body {\r\n    margin: 0;\r\n    padding: 0;\r\n    overflow: hidden;\r\n    font-family: Arial, Helvetica, sans-serif;\r\n}\r\n.overlay {\r\n    width: 100vw;\r\n    height: 100vh;\r\n    overflow-y: auto;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    background-color: rgba(0, 0, 139, 0.452);\r\n    display: flex;\r\n    justify-content: center;\r\n}\r\n.endMain {\r\n    width: 70vw;\r\n    background-color: darkcyan;\r\n    height: 100vh;\r\n    display: flex;\r\n    \r\n    align-content: flex-start;\r\n    flex-flow:column;\r\n}\r\n.text {\r\n    width: 100%;\r\n    text-align: center;\r\n}\r\n.tablica {\r\n    width: 80%;\r\n}\r\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -55251,8 +55251,8 @@ class Collisions {
             let bx3 = new three__WEBPACK_IMPORTED_MODULE_0__.Box3();
             block.geometry.computeBoundingBox();
             bx3.setFromObject(block)
-            const elper = new three__WEBPACK_IMPORTED_MODULE_0__.Box3Helper(bx3, 0xff0000)
-            scene.add(elper)
+            // const elper = new Box3Helper(bx3, 0xff0000)
+            // scene.add(elper)
             this.table.push({ box: bx3, i: index })
         })
 
@@ -55262,9 +55262,9 @@ class Collisions {
         this.object.position.set(this.mesh.position.x, this.mesh.position.y - 25, this.mesh.position.z)
         this.meshBox = new three__WEBPACK_IMPORTED_MODULE_0__.Box3();
         this.meshBox.setFromObject(this.object);
-        const helper = new three__WEBPACK_IMPORTED_MODULE_0__.Box3Helper(this.meshBox, 0xffff00);
-        
-        scene.add(this.object, helper)
+        // const helper = new Box3Helper(this.meshBox, 0xffff00);
+
+        scene.add(this.object)
         // this.elpers = []
         // // console.log(enemies)
         // this.enemies.forEach((block, index) => {
@@ -55529,7 +55529,7 @@ class Main {
     }
     init = async () => { // naprawienie tego sprawdzania, żeby tylko na jednym oknie w jednej przeglądarce
         const font = new three__WEBPACK_IMPORTED_MODULE_15__.Font(three_examples_fonts_helvetiker_regular_typeface_json__WEBPACK_IMPORTED_MODULE_16__)
-        console.log("ee")
+        // console.log("ee")
         this.socketHandler.num.then((response) => {
             // console.log(response)
             this.num = response;
@@ -55652,9 +55652,10 @@ class Main {
                         case "brown":
                             right.push(mapElement.mesh)
                             if (mapElement.mesh.position.x == 0) {
-                                console.log(mapElement.mesh.position)
+                                // console.log(mapElement.mesh.position)
                                 let a = new _CustText__WEBPACK_IMPORTED_MODULE_12__.default(pytania[x++], font, this.scene)
-                                console.log([a.geometry.center()])
+                                // console.log([])
+                                a.geometry.center()
                                 a.position.set(mapElement.mesh.position.x, 60, mapElement.mesh.position.z)
                                 this.pytania.push(a);
                             }
@@ -55767,11 +55768,11 @@ class Main {
                 this.expl.push(new _BoomAnim__WEBPACK_IMPORTED_MODULE_11__.default(spr[0].position, this.scene));
                 setTimeout(() => {
                     this.expl.push(new _BoomAnim__WEBPACK_IMPORTED_MODULE_11__.default(spr[0].position, this.scene));
-                    console.log("?")
+                    // console.log("?")
                 }, 100)
                 setTimeout(() => {
                     this.expl.push(new _BoomAnim__WEBPACK_IMPORTED_MODULE_11__.default(spr[0].position, this.scene));
-                    console.log("?")
+                    // console.log("?")
                 }, 200)
                 spr[0].material.visible = false; //musi być!
                 this.scene.remove(spr[0])
@@ -55814,9 +55815,11 @@ class Main {
         else {
 
             console.log("Wygrał gracz: " + this.socketHandler.ktowygral.split("=")[0])
+
             await this.socketHandler.laderBoard;
+            // console.table(this.socketHandler.ladData)
             // console.log(new Date().getTime() - this.socketHandler.time)
-            new _OverScreen__WEBPACK_IMPORTED_MODULE_13__.default(this.socketHandler.ktowygral.split("=")[0], this.socketHandler.ktowygral.split("=")[1])
+            new _OverScreen__WEBPACK_IMPORTED_MODULE_13__.default(this.socketHandler.ktowygral.split("=")[0], this.socketHandler.ktowygral.split("=")[1], this.socketHandler.ladData)
         }
     }
 }
@@ -55879,9 +55882,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ OverScreen)
 /* harmony export */ });
 class OverScreen {
-    constructor(wygral, czas) {
+    constructor(wygral, czas, tablicaWynikow) {
         this.wygral = wygral;
-
+        this.tablicaWynikow = tablicaWynikow;
         czas = eval(czas)
         let min = new Date(czas).getMinutes();
         if (min < 10)
@@ -55916,9 +55919,37 @@ class OverScreen {
         let KtoWygral = document.createElement("div");
         KtoWygral.innerText = `Wygrał gracz o numerze: ${this.wygral} \n z czasem: ${this.Wczas}.\n Brawo!`;
         KtoWygral.classList.add("text")
+        let TablicaWynikow = document.createElement("div")
+        TablicaWynikow.classList.add("tablica")
+        TablicaWynikow.innerHTML = "<h4>TOP 10</h4>\n"
+
+        this.tablicaWynikow.sort((a, b) => a.czas - b.czas)
+        this.tablicaWynikow.splice(9, this.tablicaWynikow.length - 1)
+        this.tablicaWynikow.forEach(el => {
+            let d = document.createElement("div");
+            d.style.color = "white";
+            d.style.margin = "5px"
+            let min = new Date(el.czas).getMinutes();
+            if (min < 10)
+                min = "0" + min;
+            let sec = new Date(el.czas).getSeconds();
+            if (sec < 10)
+                sec = "0" + sec
+            let mil = new Date(el.czas).getMilliseconds();
+            if (mil < 100) {
+                if (mil < 10) {
+                    mil = "0" + mil;
+                }
+                mil = "0" + mil;
+            }
+            d.innerHTML = `<div style="display:inline-block; width:100px; margin-right:10px;">${el.nick}</div> ${min}:${sec}:${mil}`
+            TablicaWynikow.appendChild(d)
+        });
+
         container.append(KtoWygral)
         main.append(KoniecText, container)
         this.overlay.appendChild(main)
+        this.overlay.appendChild(TablicaWynikow)
     }
 
 }
@@ -56163,7 +56194,8 @@ class SocketHandler {
         this.oplayer.rot = null;
         this.ktowygral = "";
         this.time = 0;
-        console.log(this.oplayer)
+        this.wyslane = false;
+        // console.log(this.oplayer)
         this.koniecGry = false
         // this.data = null;
         if (localStorage.getItem("userID") == null) {
@@ -56172,11 +56204,12 @@ class SocketHandler {
         } else {
             this.userID = localStorage.getItem("userID")
         }
-        console.log(this.userID)
+        // console.log(this.userID)
+
         this.socket.emit('getnum', this.userID);
         this.num = new Promise((resolve, reject) => {
-            socket.on('getnumres', (data) => {
-                console.log(data, "dud")
+            this.socket.on('getnumres', (data) => {
+                console.log(data, "twój numer")
                 resolve(data)
             })
         })
@@ -56211,7 +56244,9 @@ class SocketHandler {
         this.socket.emit("cords", this.userID + ":" + this.num + "=" + JSON.stringify(string) + "=" + JSON.stringify(nd))
     }
     endGame() {
-        this.socket.emit("end", this.userID + ":" + this.num + "=" + (new Date().getTime() - this.time))
+        if (!this.wyslane)
+            this.socket.emit("end", this.userID + ":" + this.num + "=" + (new Date().getTime() - this.time))
+        this.wyslane = true;
     }
 
 }

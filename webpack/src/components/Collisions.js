@@ -24,8 +24,8 @@ export default class Collisions {
             let bx3 = new Box3();
             block.geometry.computeBoundingBox();
             bx3.setFromObject(block)
-            const elper = new Box3Helper(bx3, 0xff0000)
-            scene.add(elper)
+            // const elper = new Box3Helper(bx3, 0xff0000)
+            // scene.add(elper)
             this.table.push({ box: bx3, i: index })
         })
 
@@ -35,9 +35,9 @@ export default class Collisions {
         this.object.position.set(this.mesh.position.x, this.mesh.position.y - 25, this.mesh.position.z)
         this.meshBox = new Box3();
         this.meshBox.setFromObject(this.object);
-        const helper = new Box3Helper(this.meshBox, 0xffff00);
-        
-        scene.add(this.object, helper)
+        // const helper = new Box3Helper(this.meshBox, 0xffff00);
+
+        scene.add(this.object)
         // this.elpers = []
         // // console.log(enemies)
         // this.enemies.forEach((block, index) => {
