@@ -1,4 +1,4 @@
-import { Scene, GridHelper, LoadingManager, AmbientLight, Clock, Vector3, Color, Box3 } from 'three';
+import { Scene, MeshPhongMaterial, TextGeometry, GridHelper, LoadingManager, AmbientLight, Clock, Vector3, Color, Box3, Font } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 import Renderer from './Renderer';
@@ -12,6 +12,9 @@ import SocketHandler from './SocketHandler';
 import Config from './Config';
 import Mapblock from './Map';
 import Collisions from './Collisions';
+import BoomAnim from './BoomAnim';
+import CustText from './CustText';
+import helvetike from "three/examples/fonts/helvetiker_regular.typeface.json"
 import { io } from "socket.io-client";
 
 export default class Main {
@@ -22,12 +25,13 @@ export default class Main {
         this.init();
     }
     init = async () => { // naprawienie tego sprawdzania, żeby tylko na jednym oknie w jednej przeglądarce
-
+        const font = new Font(helvetike)
         console.log("ee")
         this.socketHandler.num.then((response) => {
             // console.log(response)
             this.num = response;
             this.socketHandler.num = this.num
+
             // console.log(this.num)
             if (this.num < 2) {
 
@@ -43,6 +47,29 @@ export default class Main {
                 this.manager = new LoadingManager();
                 this.playerControl = new PlayerControl();
 
+                //////////
+                //przykład tekstu, żeby pokazywał się przy blokach brązowych i żółtych, pierwszy jest nad -- pytanie
+                let testText = new CustText("2+2", font, this.scene)
+                testText.text.position.set(-15, 55, -100) // zmieniamy tylko z!
+                let test2 = new CustText("1", font, this.scene)
+                test2.text.position.set(-50, 4, -90)
+                // console.log(font)
+                // console.log("???")
+                // const geT = new TextGeometry('Hello three.js!', {
+                //     font: font,
+                //     size: 15,
+                //     height: 1,
+                //     curveSegments: 1,
+                //     bevelEnabled: true,
+                //     bevelThickness: 1,
+                //     bevelSize: 0.25,
+                //     bevelOffset: 0.25,
+                //     bevelSegments: 1
+                // })
+                // const meT = new MeshPhongMaterial({ color: "red", wireframe: true, })
+                // let text = new Mesh(geT, meT)
+                // this.scene.add(text)
+                // this.scene.add(text)
                 //////////
 
 
@@ -71,7 +98,6 @@ export default class Main {
                 let mapblock12 = new Mapblock(this.scene, -55, 0, -700, 50, 50, 20, 'brown', 'brown')
                 let mapblock13 = new Mapblock(this.scene, 0, 0, -700, 60, 50, 20, 'yellow', 'yellow')
                 let mapblock14 = new Mapblock(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'yellow')
-
                 this.map = [
                     new Mapblock(this.scene, 0, 0, 100, 200, 50, 20, 'black', 'black'),
                     //bloki mapy,            osx, osy, osz, szer, wys, dlug, kolor
@@ -81,7 +107,7 @@ export default class Main {
                     mapblock6, mapblock7, mapblock8,
                     mapblock9, mapblock10, mapblock11,
                     mapblock12, mapblock13, mapblock14,
-                    new Mapblock(this.scene, 0, 0, -800, 50, 5, 50, 'green', 'green')
+                    new Mapblock(this.scene, 0, 0, -800, 25, 5, 25, 'green', 'green')
                     //bloki mapy,            osx, osy, osz, szer, wys, dlug, kolor
                 ] // wstawmy to do jednej tablicy.
                 // console.log(this.map[16])
@@ -121,6 +147,9 @@ export default class Main {
                 this.playerSpeed = 2;
                 this.prevPos = new Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
                 this.prevRot = new Vector3(this.player1.mesh.rotation.x, this.player1.mesh.rotation.y, this.player1.mesh.rotation.z)
+
+                this.expl = [];
+
                 this.render();
 
             } else {
@@ -128,6 +157,7 @@ export default class Main {
                 console.log("Zaczekaj aż zwolni się miejsce!")
 
             }
+
         })
     }
 
@@ -197,11 +227,26 @@ export default class Main {
         if (spr.length > 0 && spr) {
             if (spr[0].material.visible) {// tutaj jakieś efekty, narazie znika!
                 // console.log("it")
-                this.scene.remove(spr[0])
+                this.expl.push(new BoomAnim(spr[0].position, this.scene));
+                setTimeout(() => {
+                    this.expl.push(new BoomAnim(spr[0].position, this.scene));
+                    console.log("?")
+                }, 100)
+                setTimeout(() => {
+                    this.expl.push(new BoomAnim(spr[0].position, this.scene));
+                    console.log("?")
+                }, 200)
                 spr[0].material.visible = false; //musi być!
+                this.scene.remove(spr[0])
             }
         }
-
+        this.expl.forEach(bo => {
+            if (bo.scale.x < 20) bo.update();
+            else if (!bo.unloaded) {
+                this.scene.remove(bo)
+                bo.unloaded = true;
+            }
+        });
         if (!this.prevPos.equals(this.player1.mesh.position) || this.prevRot.y != this.player1.mesh.rotation.y) {
             this.socketHandler.sendData(this.player1.mesh.position, this.player1.mesh.rotation)
             this.prevPos = new Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
@@ -223,6 +268,7 @@ export default class Main {
             // console.log(this.goodColision.meshBox.intersect(this.winBox))
             console.log("WIN")
             this.socketHandler.endGame();
+
         }
         this.camera.position.set(this.player1.mesh.position.x, this.player1.mesh.position.y + 20, this.player1.mesh.position.z + 50) //kamera porusza sie za graczem
         this.camera.lookAt(this.player1.mesh.position)

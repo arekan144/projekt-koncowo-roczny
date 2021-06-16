@@ -32,6 +32,13 @@ module.exports = {
                     }
                 }]
             },
+            {
+
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+
+                type: 'asset/resource',
+
+            },
             // {
             //     test: /\.(md2)$/i,
             //     type: 'asset/resource',
