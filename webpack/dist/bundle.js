@@ -55884,6 +55884,7 @@ __webpack_require__.r(__webpack_exports__);
 class OverScreen {
     constructor(wygral, czas, tablicaWynikow) {
         this.wygral = wygral;
+        this.czas = czas
         this.tablicaWynikow = tablicaWynikow;
         czas = eval(czas)
         let min = new Date(czas).getMinutes();
@@ -55922,7 +55923,7 @@ class OverScreen {
         let TablicaWynikow = document.createElement("div")
         TablicaWynikow.classList.add("tablica")
         TablicaWynikow.innerHTML = "<h4>TOP 10</h4>\n"
-
+        TablicaWynikow.style.color = "green"
         this.tablicaWynikow.sort((a, b) => a.czas - b.czas)
         this.tablicaWynikow.splice(9, this.tablicaWynikow.length - 1)
         this.tablicaWynikow.forEach(el => {
@@ -55942,7 +55943,11 @@ class OverScreen {
                 }
                 mil = "0" + mil;
             }
+
             d.innerHTML = `<div style="display:inline-block; width:100px; margin-right:10px;">${el.nick}</div> ${min}:${sec}:${mil}`
+            if (el.nick == this.wygral && el.czas == this.czas) {
+                d.style.color = "orange"
+            }
             TablicaWynikow.appendChild(d)
         });
 
