@@ -20,7 +20,8 @@ import { io } from "socket.io-client";
 
 export default class Main {
     constructor(container) {
-        this.socketHandler = new SocketHandler(io("ws://localhost:3000"))
+        console.log(location.host)
+        this.socketHandler = new SocketHandler(io("ws://" + location.host))
         this.container = container;
         this.koniecGry = false;
         this.init();
