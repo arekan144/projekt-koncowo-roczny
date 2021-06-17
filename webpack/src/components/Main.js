@@ -21,7 +21,7 @@ import { io } from "socket.io-client";
 export default class Main {
     constructor(container) {
         // console.log(location.host)
-        this.socketHandler = new SocketHandler(io("localhost:3000"))
+        this.socketHandler = new SocketHandler(io())
         this.container = container;
         this.koniecGry = false;
         this.init();
