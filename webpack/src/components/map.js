@@ -1,4 +1,4 @@
-import { BoxGeometry, Mesh, MeshBasicMaterial, TextureLoader } from "three";
+import { BoxGeometry, Mesh, MeshBasicMaterial, RepeatWrapping, TextureLoader } from "three";
 import twoj_plik from "./assets/tekstura.jpg"
 import CustText from "./CustText";
 
@@ -7,13 +7,16 @@ export default class Mapblock {
         // if (txtV)
         //     const { text, font } = txtV;
         this.typ = c; //zmienna która rozróżnia nam bloki
+        let texture = new TextureLoader().load(twoj_plik)
+        texture.wrapS = RepeatWrapping;
+        texture.wrapT = RepeatWrapping;
+        texture.repeat.set(4, 4);
         this.mesh = new Mesh(
             new BoxGeometry(x, y, z),
-            new MeshBasicMaterial({ 
-                map : new TextureLoader().load(twoj_plik)
+            new MeshBasicMaterial({
+                map: texture
             }),
         )
-
         this.mesh.position.x = pos_x;
         this.mesh.position.y = pos_y + (this.mesh.geometry.parameters.height / 2 + 1);
         this.mesh.position.z = pos_z

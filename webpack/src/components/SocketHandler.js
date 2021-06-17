@@ -1,10 +1,10 @@
-import { Vector2, Vector3 } from "three";
+import { Vector3 } from "three";
 
 export default class SocketHandler {
     constructor(socket) {
         this.socket = socket;
         this.oplayer = {}
-        this.oplayer.pos = null;
+        this.oplayer.pos = new Vector3(0, 0, 0);
         this.oplayer.rot = null;
         this.ktowygral = "";
         this.time = 0;

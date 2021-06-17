@@ -55012,6 +55012,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/components/assets/billywork.png":
+/*!*********************************************!*\
+  !*** ./src/components/assets/billywork.png ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "images/d861db45a46b261aa093218ea787d54e-billywork.png");
+
+/***/ }),
+
 /***/ "./src/components/assets/fire.png":
 /*!****************************************!*\
   !*** ./src/components/assets/fire.png ***!
@@ -55024,6 +55039,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "images/9f7a1179419675f14a95b358db13c960-fire.png");
+
+/***/ }),
+
+/***/ "./src/components/assets/tekstura.jpg":
+/*!********************************************!*\
+  !*** ./src/components/assets/tekstura.jpg ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__webpack_require__.p + "images/52ff9b113b86a9d52c0ee5eb49728f4b-tekstura.jpg");
 
 /***/ }),
 
@@ -55120,22 +55150,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
 
 
-class Animation extends three__WEBPACK_IMPORTED_MODULE_0__.AnimationMixer {
+class Animation {
     constructor(mesh) {
         this.mesh = mesh
-        super(this.mesh);
+        this.mixer = new three__WEBPACK_IMPORTED_MODULE_0__.AnimationMixer(this.mesh);
     }
 
     playAnim(animName) {
         this.animName = animName
-        this.uncacheRoot(this.mesh)
-        this.clipAction(this.animName).play()
+        this.mixer.uncacheRoot(this.mesh)
+        this.mixer.clipAction(this.animName).play()
     }
 
     // update mixer
     update(delta) {
         if (this) {
-            this.update(delta);
+            this.mixer.update(delta);
         }
     }
 }
@@ -55256,14 +55286,14 @@ class Collisions {
             this.table.push({ box: bx3, i: index })
         })
 
-        const ge = new three__WEBPACK_IMPORTED_MODULE_0__.BoxGeometry(10, 100, 10)
+        const ge = new three__WEBPACK_IMPORTED_MODULE_0__.BoxGeometry(15, 100, 10)
         const mat = new three__WEBPACK_IMPORTED_MODULE_0__.MeshBasicMaterial({ visible: false, side: three__WEBPACK_IMPORTED_MODULE_0__.DoubleSide })
         this.object = new three__WEBPACK_IMPORTED_MODULE_0__.Mesh(ge, mat)
         this.object.position.set(this.mesh.position.x, this.mesh.position.y - 25, this.mesh.position.z)
         this.meshBox = new three__WEBPACK_IMPORTED_MODULE_0__.Box3();
         this.meshBox.setFromObject(this.object);
         // const helper = new Box3Helper(this.meshBox, 0xffff00);
-
+        // scene.add(helper)
         scene.add(this.object)
         // this.elpers = []
         // // console.log(enemies)
@@ -55472,6 +55502,420 @@ class Ico extends three__WEBPACK_IMPORTED_MODULE_0__.Mesh {
 
 /***/ }),
 
+/***/ "./src/components/MD2Loader.js":
+/*!*************************************!*\
+  !*** ./src/components/MD2Loader.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "MD2Loader": () => (/* binding */ MD2Loader)
+/* harmony export */ });
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+
+
+var MD2Loader = function ( manager ) {
+
+	three__WEBPACK_IMPORTED_MODULE_0__.Loader.call( this, manager );
+
+};
+
+MD2Loader.prototype = Object.assign( Object.create( three__WEBPACK_IMPORTED_MODULE_0__.Loader.prototype ), {
+
+	constructor: MD2Loader,
+
+	load: function ( url, onLoad, onProgress, onError ) {
+
+		var scope = this;
+
+		var loader = new three__WEBPACK_IMPORTED_MODULE_0__.FileLoader( scope.manager );
+		loader.setPath( scope.path );
+		loader.setResponseType( 'arraybuffer' );
+		loader.setRequestHeader( scope.requestHeader );
+		loader.setWithCredentials( scope.withCredentials );
+		loader.load( url, function ( buffer ) {
+
+			try {
+
+				onLoad( scope.parse( buffer ) );
+
+			} catch ( e ) {
+
+				if ( onError ) {
+
+					onError( e );
+
+				} else {
+
+					console.error( e );
+
+				}
+
+				scope.manager.itemError( url );
+
+			}
+
+		}, onProgress, onError );
+
+	},
+
+	parse: ( function () {
+
+		var normalData = [
+			[ - 0.525731, 0.000000, 0.850651 ], [ - 0.442863, 0.238856, 0.864188 ],
+			[ - 0.295242, 0.000000, 0.955423 ], [ - 0.309017, 0.500000, 0.809017 ],
+			[ - 0.162460, 0.262866, 0.951056 ], [ 0.000000, 0.000000, 1.000000 ],
+			[ 0.000000, 0.850651, 0.525731 ], [ - 0.147621, 0.716567, 0.681718 ],
+			[ 0.147621, 0.716567, 0.681718 ], [ 0.000000, 0.525731, 0.850651 ],
+			[ 0.309017, 0.500000, 0.809017 ], [ 0.525731, 0.000000, 0.850651 ],
+			[ 0.295242, 0.000000, 0.955423 ], [ 0.442863, 0.238856, 0.864188 ],
+			[ 0.162460, 0.262866, 0.951056 ], [ - 0.681718, 0.147621, 0.716567 ],
+			[ - 0.809017, 0.309017, 0.500000 ], [ - 0.587785, 0.425325, 0.688191 ],
+			[ - 0.850651, 0.525731, 0.000000 ], [ - 0.864188, 0.442863, 0.238856 ],
+			[ - 0.716567, 0.681718, 0.147621 ], [ - 0.688191, 0.587785, 0.425325 ],
+			[ - 0.500000, 0.809017, 0.309017 ], [ - 0.238856, 0.864188, 0.442863 ],
+			[ - 0.425325, 0.688191, 0.587785 ], [ - 0.716567, 0.681718, - 0.147621 ],
+			[ - 0.500000, 0.809017, - 0.309017 ], [ - 0.525731, 0.850651, 0.000000 ],
+			[ 0.000000, 0.850651, - 0.525731 ], [ - 0.238856, 0.864188, - 0.442863 ],
+			[ 0.000000, 0.955423, - 0.295242 ], [ - 0.262866, 0.951056, - 0.162460 ],
+			[ 0.000000, 1.000000, 0.000000 ], [ 0.000000, 0.955423, 0.295242 ],
+			[ - 0.262866, 0.951056, 0.162460 ], [ 0.238856, 0.864188, 0.442863 ],
+			[ 0.262866, 0.951056, 0.162460 ], [ 0.500000, 0.809017, 0.309017 ],
+			[ 0.238856, 0.864188, - 0.442863 ], [ 0.262866, 0.951056, - 0.162460 ],
+			[ 0.500000, 0.809017, - 0.309017 ], [ 0.850651, 0.525731, 0.000000 ],
+			[ 0.716567, 0.681718, 0.147621 ], [ 0.716567, 0.681718, - 0.147621 ],
+			[ 0.525731, 0.850651, 0.000000 ], [ 0.425325, 0.688191, 0.587785 ],
+			[ 0.864188, 0.442863, 0.238856 ], [ 0.688191, 0.587785, 0.425325 ],
+			[ 0.809017, 0.309017, 0.500000 ], [ 0.681718, 0.147621, 0.716567 ],
+			[ 0.587785, 0.425325, 0.688191 ], [ 0.955423, 0.295242, 0.000000 ],
+			[ 1.000000, 0.000000, 0.000000 ], [ 0.951056, 0.162460, 0.262866 ],
+			[ 0.850651, - 0.525731, 0.000000 ], [ 0.955423, - 0.295242, 0.000000 ],
+			[ 0.864188, - 0.442863, 0.238856 ], [ 0.951056, - 0.162460, 0.262866 ],
+			[ 0.809017, - 0.309017, 0.500000 ], [ 0.681718, - 0.147621, 0.716567 ],
+			[ 0.850651, 0.000000, 0.525731 ], [ 0.864188, 0.442863, - 0.238856 ],
+			[ 0.809017, 0.309017, - 0.500000 ], [ 0.951056, 0.162460, - 0.262866 ],
+			[ 0.525731, 0.000000, - 0.850651 ], [ 0.681718, 0.147621, - 0.716567 ],
+			[ 0.681718, - 0.147621, - 0.716567 ], [ 0.850651, 0.000000, - 0.525731 ],
+			[ 0.809017, - 0.309017, - 0.500000 ], [ 0.864188, - 0.442863, - 0.238856 ],
+			[ 0.951056, - 0.162460, - 0.262866 ], [ 0.147621, 0.716567, - 0.681718 ],
+			[ 0.309017, 0.500000, - 0.809017 ], [ 0.425325, 0.688191, - 0.587785 ],
+			[ 0.442863, 0.238856, - 0.864188 ], [ 0.587785, 0.425325, - 0.688191 ],
+			[ 0.688191, 0.587785, - 0.425325 ], [ - 0.147621, 0.716567, - 0.681718 ],
+			[ - 0.309017, 0.500000, - 0.809017 ], [ 0.000000, 0.525731, - 0.850651 ],
+			[ - 0.525731, 0.000000, - 0.850651 ], [ - 0.442863, 0.238856, - 0.864188 ],
+			[ - 0.295242, 0.000000, - 0.955423 ], [ - 0.162460, 0.262866, - 0.951056 ],
+			[ 0.000000, 0.000000, - 1.000000 ], [ 0.295242, 0.000000, - 0.955423 ],
+			[ 0.162460, 0.262866, - 0.951056 ], [ - 0.442863, - 0.238856, - 0.864188 ],
+			[ - 0.309017, - 0.500000, - 0.809017 ], [ - 0.162460, - 0.262866, - 0.951056 ],
+			[ 0.000000, - 0.850651, - 0.525731 ], [ - 0.147621, - 0.716567, - 0.681718 ],
+			[ 0.147621, - 0.716567, - 0.681718 ], [ 0.000000, - 0.525731, - 0.850651 ],
+			[ 0.309017, - 0.500000, - 0.809017 ], [ 0.442863, - 0.238856, - 0.864188 ],
+			[ 0.162460, - 0.262866, - 0.951056 ], [ 0.238856, - 0.864188, - 0.442863 ],
+			[ 0.500000, - 0.809017, - 0.309017 ], [ 0.425325, - 0.688191, - 0.587785 ],
+			[ 0.716567, - 0.681718, - 0.147621 ], [ 0.688191, - 0.587785, - 0.425325 ],
+			[ 0.587785, - 0.425325, - 0.688191 ], [ 0.000000, - 0.955423, - 0.295242 ],
+			[ 0.000000, - 1.000000, 0.000000 ], [ 0.262866, - 0.951056, - 0.162460 ],
+			[ 0.000000, - 0.850651, 0.525731 ], [ 0.000000, - 0.955423, 0.295242 ],
+			[ 0.238856, - 0.864188, 0.442863 ], [ 0.262866, - 0.951056, 0.162460 ],
+			[ 0.500000, - 0.809017, 0.309017 ], [ 0.716567, - 0.681718, 0.147621 ],
+			[ 0.525731, - 0.850651, 0.000000 ], [ - 0.238856, - 0.864188, - 0.442863 ],
+			[ - 0.500000, - 0.809017, - 0.309017 ], [ - 0.262866, - 0.951056, - 0.162460 ],
+			[ - 0.850651, - 0.525731, 0.000000 ], [ - 0.716567, - 0.681718, - 0.147621 ],
+			[ - 0.716567, - 0.681718, 0.147621 ], [ - 0.525731, - 0.850651, 0.000000 ],
+			[ - 0.500000, - 0.809017, 0.309017 ], [ - 0.238856, - 0.864188, 0.442863 ],
+			[ - 0.262866, - 0.951056, 0.162460 ], [ - 0.864188, - 0.442863, 0.238856 ],
+			[ - 0.809017, - 0.309017, 0.500000 ], [ - 0.688191, - 0.587785, 0.425325 ],
+			[ - 0.681718, - 0.147621, 0.716567 ], [ - 0.442863, - 0.238856, 0.864188 ],
+			[ - 0.587785, - 0.425325, 0.688191 ], [ - 0.309017, - 0.500000, 0.809017 ],
+			[ - 0.147621, - 0.716567, 0.681718 ], [ - 0.425325, - 0.688191, 0.587785 ],
+			[ - 0.162460, - 0.262866, 0.951056 ], [ 0.442863, - 0.238856, 0.864188 ],
+			[ 0.162460, - 0.262866, 0.951056 ], [ 0.309017, - 0.500000, 0.809017 ],
+			[ 0.147621, - 0.716567, 0.681718 ], [ 0.000000, - 0.525731, 0.850651 ],
+			[ 0.425325, - 0.688191, 0.587785 ], [ 0.587785, - 0.425325, 0.688191 ],
+			[ 0.688191, - 0.587785, 0.425325 ], [ - 0.955423, 0.295242, 0.000000 ],
+			[ - 0.951056, 0.162460, 0.262866 ], [ - 1.000000, 0.000000, 0.000000 ],
+			[ - 0.850651, 0.000000, 0.525731 ], [ - 0.955423, - 0.295242, 0.000000 ],
+			[ - 0.951056, - 0.162460, 0.262866 ], [ - 0.864188, 0.442863, - 0.238856 ],
+			[ - 0.951056, 0.162460, - 0.262866 ], [ - 0.809017, 0.309017, - 0.500000 ],
+			[ - 0.864188, - 0.442863, - 0.238856 ], [ - 0.951056, - 0.162460, - 0.262866 ],
+			[ - 0.809017, - 0.309017, - 0.500000 ], [ - 0.681718, 0.147621, - 0.716567 ],
+			[ - 0.681718, - 0.147621, - 0.716567 ], [ - 0.850651, 0.000000, - 0.525731 ],
+			[ - 0.688191, 0.587785, - 0.425325 ], [ - 0.587785, 0.425325, - 0.688191 ],
+			[ - 0.425325, 0.688191, - 0.587785 ], [ - 0.425325, - 0.688191, - 0.587785 ],
+			[ - 0.587785, - 0.425325, - 0.688191 ], [ - 0.688191, - 0.587785, - 0.425325 ]
+		];
+
+		return function ( buffer ) {
+
+			var data = new DataView( buffer );
+
+			// http://tfc.duke.free.fr/coding/md2-specs-en.html
+
+			var header = {};
+			var headerNames = [
+				'ident', 'version',
+				'skinwidth', 'skinheight',
+				'framesize',
+				'num_skins', 'num_vertices', 'num_st', 'num_tris', 'num_glcmds', 'num_frames',
+				'offset_skins', 'offset_st', 'offset_tris', 'offset_frames', 'offset_glcmds', 'offset_end'
+			];
+
+			for ( var i = 0; i < headerNames.length; i ++ ) {
+
+				header[ headerNames[ i ] ] = data.getInt32( i * 4, true );
+
+			}
+
+			if ( header.ident !== 844121161 || header.version !== 8 ) {
+
+				console.error( 'Not a valid MD2 file' );
+				return;
+
+			}
+
+			if ( header.offset_end !== data.byteLength ) {
+
+				console.error( 'Corrupted MD2 file' );
+				return;
+
+			}
+
+			//
+
+			var geometry = new three__WEBPACK_IMPORTED_MODULE_0__.BufferGeometry();
+
+			// uvs
+
+			var uvsTemp = [];
+			var offset = header.offset_st;
+
+			for ( var i = 0, l = header.num_st; i < l; i ++ ) {
+
+				var u = data.getInt16( offset + 0, true );
+				var v = data.getInt16( offset + 2, true );
+
+				uvsTemp.push( u / header.skinwidth, 1 - ( v / header.skinheight ) );
+
+				offset += 4;
+
+			}
+
+			// triangles
+
+			offset = header.offset_tris;
+
+			var vertexIndices = [];
+			var uvIndices = [];
+
+			for ( var i = 0, l = header.num_tris; i < l; i ++ ) {
+
+				vertexIndices.push(
+					data.getUint16( offset + 0, true ),
+					data.getUint16( offset + 2, true ),
+					data.getUint16( offset + 4, true )
+				);
+
+				uvIndices.push(
+					data.getUint16( offset + 6, true ),
+					data.getUint16( offset + 8, true ),
+					data.getUint16( offset + 10, true )
+				);
+
+				offset += 12;
+
+			}
+
+			// frames
+
+			var translation = new three__WEBPACK_IMPORTED_MODULE_0__.Vector3();
+			var scale = new three__WEBPACK_IMPORTED_MODULE_0__.Vector3();
+
+			var frames = [];
+
+			offset = header.offset_frames;
+
+			for ( var i = 0, l = header.num_frames; i < l; i ++ ) {
+
+				scale.set(
+					data.getFloat32( offset + 0, true ),
+					data.getFloat32( offset + 4, true ),
+					data.getFloat32( offset + 8, true )
+				);
+
+				translation.set(
+					data.getFloat32( offset + 12, true ),
+					data.getFloat32( offset + 16, true ),
+					data.getFloat32( offset + 20, true )
+				);
+
+				offset += 24;
+
+				var string = [];
+
+				for ( var j = 0; j < 16; j ++ ) {
+
+					var character = data.getUint8( offset + j, true );
+					if ( character === 0 ) break;
+
+					string[ j ] = character;
+
+				}
+
+				var frame = {
+					name: String.fromCharCode.apply( null, string ),
+					vertices: [],
+					normals: []
+				};
+
+				offset += 16;
+
+				for ( var j = 0; j < header.num_vertices; j ++ ) {
+
+					var x = data.getUint8( offset ++, true );
+					var y = data.getUint8( offset ++, true );
+					var z = data.getUint8( offset ++, true );
+					var n = normalData[ data.getUint8( offset ++, true ) ];
+
+					x = x * scale.x + translation.x;
+					y = y * scale.y + translation.y;
+					z = z * scale.z + translation.z;
+
+					frame.vertices.push( x, z, y ); // convert to Y-up
+					frame.normals.push( n[ 0 ], n[ 2 ], n[ 1 ] ); // convert to Y-up
+
+				}
+
+				frames.push( frame );
+
+			}
+
+			// static
+
+			var positions = [];
+			var normals = [];
+			var uvs = [];
+
+			var verticesTemp = frames[ 0 ].vertices;
+			var normalsTemp = frames[ 0 ].normals;
+
+			for ( var i = 0, l = vertexIndices.length; i < l; i ++ ) {
+
+				var vertexIndex = vertexIndices[ i ];
+				var stride = vertexIndex * 3;
+
+				//
+
+				var x = verticesTemp[ stride ];
+				var y = verticesTemp[ stride + 1 ];
+				var z = verticesTemp[ stride + 2 ];
+
+				positions.push( x, y, z );
+
+				//
+
+				var nx = normalsTemp[ stride ];
+				var ny = normalsTemp[ stride + 1 ];
+				var nz = normalsTemp[ stride + 2 ];
+
+				normals.push( nx, ny, nz );
+
+				//
+
+				var uvIndex = uvIndices[ i ];
+				stride = uvIndex * 2;
+
+				var u = uvsTemp[ stride ];
+				var v = uvsTemp[ stride + 1 ];
+
+				uvs.push( u, v );
+
+			}
+
+			geometry.setAttribute( 'position', new three__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute( positions, 3 ) );
+			geometry.setAttribute( 'normal', new three__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute( normals, 3 ) );
+			geometry.setAttribute( 'uv', new three__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute( uvs, 2 ) );
+
+			// animation
+
+			var morphPositions = [];
+			var morphNormals = [];
+
+			for ( var i = 0, l = frames.length; i < l; i ++ ) {
+
+				var frame = frames[ i ];
+				var attributeName = frame.name;
+
+				if ( frame.vertices.length > 0 ) {
+
+					var positions = [];
+
+					for ( var j = 0, jl = vertexIndices.length; j < jl; j ++ ) {
+
+						var vertexIndex = vertexIndices[ j ];
+						var stride = vertexIndex * 3;
+
+						var x = frame.vertices[ stride ];
+						var y = frame.vertices[ stride + 1 ];
+						var z = frame.vertices[ stride + 2 ];
+
+						positions.push( x, y, z );
+
+					}
+
+					var positionAttribute = new three__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute( positions, 3 );
+					positionAttribute.name = attributeName;
+
+					morphPositions.push( positionAttribute );
+
+				}
+
+				if ( frame.normals.length > 0 ) {
+
+					var normals = [];
+
+					for ( var j = 0, jl = vertexIndices.length; j < jl; j ++ ) {
+
+						var vertexIndex = vertexIndices[ j ];
+						var stride = vertexIndex * 3;
+
+						var nx = frame.normals[ stride ];
+						var ny = frame.normals[ stride + 1 ];
+						var nz = frame.normals[ stride + 2 ];
+
+						normals.push( nx, ny, nz );
+
+					}
+
+					var normalAttribute = new three__WEBPACK_IMPORTED_MODULE_0__.Float32BufferAttribute( normals, 3 );
+					normalAttribute.name = attributeName;
+
+					morphNormals.push( normalAttribute );
+
+				}
+
+			}
+
+			geometry.morphAttributes.position = morphPositions;
+			geometry.morphAttributes.normal = morphNormals;
+			geometry.morphTargetsRelative = false;
+
+			geometry.animations = three__WEBPACK_IMPORTED_MODULE_0__.AnimationClip.CreateClipsFromMorphTargetSequences( frames, 10 );
+
+			return geometry;
+
+		};
+
+	} )()
+
+} );
+
+
+
+
+/***/ }),
+
 /***/ "./src/components/Main.js":
 /*!********************************!*\
   !*** ./src/components/Main.js ***!
@@ -55483,7 +55927,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Main)
 /* harmony export */ });
-/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
 /* harmony import */ var _Renderer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Renderer */ "./src/components/Renderer.js");
 /* harmony import */ var _Camera__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Camera */ "./src/components/Camera.js");
 /* harmony import */ var _Ico__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Ico */ "./src/components/Ico.js");
@@ -55497,9 +55941,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Collisions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Collisions */ "./src/components/Collisions.js");
 /* harmony import */ var _BoomAnim__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./BoomAnim */ "./src/components/BoomAnim.js");
 /* harmony import */ var _CustText__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./CustText */ "./src/components/CustText.js");
-/* harmony import */ var three_examples_fonts_helvetiker_regular_typeface_json__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! three/examples/fonts/helvetiker_regular.typeface.json */ "./node_modules/three/examples/fonts/helvetiker_regular.typeface.json");
+/* harmony import */ var three_examples_fonts_helvetiker_regular_typeface_json__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! three/examples/fonts/helvetiker_regular.typeface.json */ "./node_modules/three/examples/fonts/helvetiker_regular.typeface.json");
 /* harmony import */ var _OverScreen__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./OverScreen */ "./src/components/OverScreen.js");
-/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/wrapper.mjs");
+/* harmony import */ var _assets_billywork_png__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./assets/billywork.png */ "./src/components/assets/billywork.png");
+/* harmony import */ var _assets_tris_MD2__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./assets/tris.MD2 */ "./src/components/assets/tris.MD2");
+/* harmony import */ var _Animation__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./Animation */ "./src/components/Animation.js");
+/* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! socket.io-client */ "./node_modules/socket.io-client/wrapper.mjs");
+
+
+
+
+
 
 
 
@@ -55523,13 +55975,14 @@ __webpack_require__.r(__webpack_exports__);
 class Main {
     constructor(container) {
         // console.log(location.host)
-        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_14__.io)())
+        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_17__.io)("localhost:3000"))
         this.container = container;
         this.koniecGry = false;
         this.init();
+
     }
     init = async () => { // naprawienie tego sprawdzania, żeby tylko na jednym oknie w jednej przeglądarce
-        const font = new three__WEBPACK_IMPORTED_MODULE_15__.Font(three_examples_fonts_helvetiker_regular_typeface_json__WEBPACK_IMPORTED_MODULE_16__)
+        const font = new three__WEBPACK_IMPORTED_MODULE_18__.Font(three_examples_fonts_helvetiker_regular_typeface_json__WEBPACK_IMPORTED_MODULE_19__)
         // console.log("ee")
         this.socketHandler.num.then((response) => {
             // console.log(response)
@@ -55538,162 +55991,202 @@ class Main {
             this.socketHandler.time = new Date().getTime();
             // console.log(this.num)
             if (this.num < 2) {
-
-                //////////
-
-                this.scene = new three__WEBPACK_IMPORTED_MODULE_15__.Scene();
+                this.manager = new three__WEBPACK_IMPORTED_MODULE_18__.LoadingManager();
+                this.scene = new three__WEBPACK_IMPORTED_MODULE_18__.Scene();
                 this.renderer = new _Renderer__WEBPACK_IMPORTED_MODULE_0__.default(this.scene, this.container);
                 this.camera = new _Camera__WEBPACK_IMPORTED_MODULE_1__.default(this.renderer);
+                this.player1 = new _Player__WEBPACK_IMPORTED_MODULE_5__.default(this.manager)
+                this.player1.load(_assets_tris_MD2__WEBPACK_IMPORTED_MODULE_15__, _assets_billywork_png__WEBPACK_IMPORTED_MODULE_14__.default)
+                this.player2 = new _Player__WEBPACK_IMPORTED_MODULE_5__.default(this.manager)
+                this.player2.load(_assets_tris_MD2__WEBPACK_IMPORTED_MODULE_15__, _assets_billywork_png__WEBPACK_IMPORTED_MODULE_14__.default)
+                this.scene.add(this.player1, this.player2)
+                // this.player1 = {}
+                // this.player2 = {}
+                // this.player1.mesh = new Mesh(new BoxGeometry(10, 50, 10), new MeshBasicMaterial({ color: "green" }))
+                // this.player2.mesh = new Mesh(new BoxGeometry(10, 50, 10), new MeshBasicMaterial({ color: "green" }))
+                this.manager.onLoad = () => {
+                    // console.log(this.player1.mesh.geometry)
+                    this.animation1 = new _Animation__WEBPACK_IMPORTED_MODULE_16__.default(this.player1.mesh)
+                    this.animation2 = new _Animation__WEBPACK_IMPORTED_MODULE_16__.default(this.player2.mesh)
+                    //////////
+                    // console.log(this.player2.mesh.position.copy())
+                    //////////
 
-                //////////
+                    this.clock = new three__WEBPACK_IMPORTED_MODULE_18__.Clock();
 
-                this.clock = new three__WEBPACK_IMPORTED_MODULE_15__.Clock();
-                this.manager = new three__WEBPACK_IMPORTED_MODULE_15__.LoadingManager();
-                this.playerControl = new _PlayerControl__WEBPACK_IMPORTED_MODULE_6__.default();
+                    this.playerControl = new _PlayerControl__WEBPACK_IMPORTED_MODULE_6__.default();
 
-                //////////
-                //przykład tekstu, żeby pokazywał się przy blokach brązowych i żółtych, pierwszy jest nad -- pytanie
-                // let testText = new CustText("2+2", font, this.scene)
-                // testText.position.set(-15, 55, -100) // zmieniamy tylko z!
-                // let test2 = new CustText("1", font, this.scene)
-                // test2.text.position.set(-50, 4, -90)
+                    // this.isLoaded = null
+                    // this.animation1 = null
 
-                // console.log(font)
-                // console.log("???")
-                // const geT = new TextGeometry('Hello three.js!', {
-                //     font: font,
-                //     size: 15,
-                //     height: 1,
-                //     curveSegments: 1,
-                //     bevelEnabled: true,
-                //     bevelThickness: 1,
-                //     bevelSize: 0.25,
-                //     bevelOffset: 0.25,
-                //     bevelSegments: 1
-                // })
-                // const meT = new MeshPhongMaterial({ color: "red", wireframe: true, })
-                // let text = new Mesh(geT, meT)
-                // this.scene.add(text)
-                // this.scene.add(text)
-                //////////
+                    //////////
+                    //przykład tekstu, żeby pokazywał się przy blokach brązowych i żółtych, pierwszy jest nad -- pytanie
+                    // let testText = new CustText("2+2", font, this.scene)
+                    // testText.position.set(-15, 55, -100) // zmieniamy tylko z!
+                    // let test2 = new CustText("1", font, this.scene)
+                    // test2.text.position.set(-50, 4, -90)
+
+                    // console.log(font)
+                    // console.log("???")
+                    // const geT = new TextGeometry('Hello three.js!', {
+                    //     font: font,
+                    //     size: 15,
+                    //     height: 1,
+                    //     curveSegments: 1,
+                    //     bevelEnabled: true,
+                    //     bevelThickness: 1,
+                    //     bevelSize: 0.25,
+                    //     bevelOffset: 0.25,
+                    //     bevelSegments: 1
+                    // })
+                    // const meT = new MeshPhongMaterial({ color: "red", wireframe: true, })
+                    // let text = new Mesh(geT, meT)
+                    // this.scene.add(text)
+                    // this.scene.add(text)
+                    //////////
+
+                    const grid = new three__WEBPACK_IMPORTED_MODULE_18__.GridHelper(200, 20, "red")
+                    grid.translateY(1)
+
+                    this.scene.add(grid)
+                    this.floor = new _Floor__WEBPACK_IMPORTED_MODULE_3__.default(this.scene)
+                    this.floor.add(0, "lightgrey", -1)
+                    this.ambientLight = new three__WEBPACK_IMPORTED_MODULE_18__.AmbientLight("white", 1)
+                    this.skyBox = new _Skybox__WEBPACK_IMPORTED_MODULE_4__.default(this.scene);
+                    this.scene.add(this.ambientLight);
+                    let sciana1 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -90, 0, -400, 20, 50, 1000, 'black', 'black') //bloki mapy, osx, osy, osz, szer, wys, dlug, kolor
+                    let sciana2 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 90, 0, -400, 20, 50, 1000, 'black', 'black')
+                    let mapblock3 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font }) //1
+                    let mapblock4 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -100, 60, 50, 20, 'brown', 'grey', { text: "4", font: font }) //1
+                    let mapblock5 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "5", font: font }) //1
+                    let mapblock6 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -300, 50, 50, 20, 'brown', 'grey', { text: "2", font: font }) //2
+                    let mapblock7 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -300, 60, 50, 20, 'yellow', 'grey', { text: "4", font: font }) //2
+                    let mapblock8 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -300, 50, 50, 20, 'yellow', 'grey', { text: "1", font: font }) //2
+                    let mapblock9 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -500, 50, 50, 20, 'yellow', 'grey', { text: "8", font: font }) //3
+                    let mapblock10 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -500, 60, 50, 20, 'yellow', 'grey', { text: "2", font: font }) //3
+                    let mapblock11 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -500, 50, 50, 20, 'brown', 'grey', { text: "4", font: font }) //3
+                    let mapblock12 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -700, 50, 50, 20, 'yellow', 'grey', { text: "1", font: font }) //4
+                    let mapblock13 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -700, 60, 50, 20, 'brown', 'grey', { text: "2", font: font }) //4
+                    let mapblock14 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font }) //4
+                    this.map = [
+                        new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, 100, 200, 50, 20, 'black', 'black'),
+                        //bloki mapy,            osx, osy, osz, szer, wys, dlug, kolor
+                        new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -900, 200, 50, 20, 'black', 'black'),
+                        sciana1, sciana2, //0-3 ściany
+                        mapblock3, mapblock4, mapblock5, //4 - 15 bloki odpowiedzi
+                        mapblock6, mapblock7, mapblock8,
+                        mapblock9, mapblock10, mapblock11,
+                        mapblock12, mapblock13, mapblock14,
+                        new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -800, 60, 5, 25, 'green', 'green', { text: "FINISH", font: font })
+                        //bloki mapy,            osx, osy, osz, szer, wys, dlug, kolor
+                    ]
+                    // wstawmy to do jednej tablicy.
+                    // console.log(this.map[16])
+                    // this.camera.lookAt(this.player1.mesh.position)
 
 
-                const grid = new three__WEBPACK_IMPORTED_MODULE_15__.GridHelper(200, 20, "red")
-                grid.translateY(1)
+                    // const controls = new OrbitControls(this.camera, this.renderer.domElement)
+                    //jeżeli kamera podąża to usuńmy to ^
+                    let walls = [this.map[0].mesh, this.map[1].mesh, this.map[2].mesh, this.map[3].mesh]
+                    // walls = [...wals, ]
+                    this.stopColision = new _Collisions__WEBPACK_IMPORTED_MODULE_10__.default(walls, this.player1.mesh, this.scene)
+                    let wrong = [];
+                    let right = [];
 
-                this.scene.add(grid)
-                this.floor = new _Floor__WEBPACK_IMPORTED_MODULE_3__.default(this.scene)
-                this.floor.add(0, "lightgrey", -1)
-                this.ambientLight = new three__WEBPACK_IMPORTED_MODULE_15__.AmbientLight("white", 0.5)
-                this.skyBox = new _Skybox__WEBPACK_IMPORTED_MODULE_4__.default(this.scene);
-                this.scene.add(this.ambientLight)
-                this.player1 = new _Player__WEBPACK_IMPORTED_MODULE_5__.default(this.scene, 0, 0, 0)
-                this.player2 = new _Player__WEBPACK_IMPORTED_MODULE_5__.default(this.scene, 0, 0, 0)
-                let sciana1 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -90, 0, -400, 20, 50, 1000, 'black', 'black') //bloki mapy, osx, osy, osz, szer, wys, dlug, kolor
-                let sciana2 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 90, 0, -400, 20, 50, 1000, 'black', 'black')
-                let mapblock3 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font }) //1
-                let mapblock4 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -100, 60, 50, 20, 'brown', 'grey', { text: "4", font: font }) //1
-                let mapblock5 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "5", font: font }) //1
-                let mapblock6 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -300, 50, 50, 20, 'brown', 'grey', { text: "2", font: font }) //2
-                let mapblock7 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -300, 60, 50, 20, 'yellow', 'grey', { text: "4", font: font }) //2
-                let mapblock8 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -300, 50, 50, 20, 'yellow', 'grey', { text: "1", font: font }) //2
-                let mapblock9 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -500, 50, 50, 20, 'yellow', 'grey', { text: "8", font: font }) //3
-                let mapblock10 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -500, 60, 50, 20, 'yellow', 'grey', { text: "2", font: font }) //3
-                let mapblock11 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -500, 50, 50, 20, 'brown', 'grey', { text: "4", font: font }) //3
-                let mapblock12 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -700, 50, 50, 20, 'yellow', 'grey', { text: "1", font: font }) //4
-                let mapblock13 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -700, 60, 50, 20, 'brown', 'grey', { text: "2", font: font }) //4
-                let mapblock14 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font }) //4
-                this.map = [
-                    new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, 100, 200, 50, 20, 'black', 'black'),
-                    //bloki mapy,            osx, osy, osz, szer, wys, dlug, kolor
-                    new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -900, 200, 50, 20, 'black', 'black'),
-                    sciana1, sciana2, //0-3 ściany
-                    mapblock3, mapblock4, mapblock5, //4 - 15 bloki odpowiedzi
-                    mapblock6, mapblock7, mapblock8,
-                    mapblock9, mapblock10, mapblock11,
-                    mapblock12, mapblock13, mapblock14,
-                    new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -800, 60, 5, 25, 'green', 'green', { text: "FINISH", font: font })
-                    //bloki mapy,            osx, osy, osz, szer, wys, dlug, kolor
-                ]
-                // wstawmy to do jednej tablicy.
-                // console.log(this.map[16])
-                this.player2.mesh.material.color = new three__WEBPACK_IMPORTED_MODULE_15__.Color("red")
-                // this.camera.lookAt(this.player1.mesh.position)
+                    let pytania = [
+                        '2+2',
+                        '8/4',
+                        '2^2',
+                        'log(4)/log(2)'
+                    ]
+                    let x = 0;
+                    this.pytania = []
+                    this.map.forEach(mapElement => {
+                        switch (mapElement.typ) {
+                            case "yellow":
+                                wrong.push(mapElement.mesh)
+                                if (mapElement.mesh.position.x == 0) {
+                                    // console.log(mapElement.mesh.position)
+                                    // mapElement.mesh.position.y = 55
+                                    let a = new _CustText__WEBPACK_IMPORTED_MODULE_12__.default(pytania[x++], font, this.scene)
+                                    a.geometry.center()
+                                    a.position.set(mapElement.mesh.position.x, 60, mapElement.mesh.position.z)
+                                    this.pytania.push(a);
+                                }
+                                break;
+                            case "brown":
+                                right.push(mapElement.mesh)
+                                if (mapElement.mesh.position.x == 0) {
+                                    // console.log(mapElement.mesh.position)
+                                    let a = new _CustText__WEBPACK_IMPORTED_MODULE_12__.default(pytania[x++], font, this.scene)
+                                    // console.log([])
+                                    a.geometry.center()
+                                    a.position.set(mapElement.mesh.position.x, 60, mapElement.mesh.position.z)
+                                    this.pytania.push(a);
+                                }
+                                break;
+                        }
+                    });
 
-                this.socketHandler.oplayer = { pos: new three__WEBPACK_IMPORTED_MODULE_15__.Vector3(this.player2.mesh.position.x, this.player2.mesh.position.y, this.player2.mesh.position.z), rot: new three__WEBPACK_IMPORTED_MODULE_15__.Vector3(this.player2.mesh.rotation.x, this.player2.mesh.rotation.y, this.player2.mesh.rotation.z) }
-                // const controls = new OrbitControls(this.camera, this.renderer.domElement)
-                //jeżeli kamera podąża to usuńmy to ^
-                let walls = [this.map[0].mesh, this.map[1].mesh, this.map[2].mesh, this.map[3].mesh]
-                // walls = [...wals, ]
-                this.stopColision = new _Collisions__WEBPACK_IMPORTED_MODULE_10__.default(walls, this.player1.mesh, this.scene)
-                let wrong = [];
-                let right = [];
+                    this.winBox = new three__WEBPACK_IMPORTED_MODULE_18__.Box3()
+                    // console.log(this.map[16])
+                    this.map[16].TextBlock.translateX(-30)
+                    this.map[16].mesh.material.visible = false;
+                    this.map[16].mesh.material.color.set("green");
 
-                let pytania = [
-                    '2+2',
-                    '8/4',
-                    '2^2',
-                    'log(4)/log(2)'
-                ]
-                let x = 0;
-                this.pytania = []
-                this.map.forEach(mapElement => {
-                    switch (mapElement.typ) {
-                        case "yellow":
-                            wrong.push(mapElement.mesh)
-                            if (mapElement.mesh.position.x == 0) {
-                                // console.log(mapElement.mesh.position)
-                                // mapElement.mesh.position.y = 55
-                                let a = new _CustText__WEBPACK_IMPORTED_MODULE_12__.default(pytania[x++], font, this.scene)
-                                a.geometry.center()
-                                a.position.set(mapElement.mesh.position.x, 60, mapElement.mesh.position.z)
-                                this.pytania.push(a);
-                            }
-                            break;
-                        case "brown":
-                            right.push(mapElement.mesh)
-                            if (mapElement.mesh.position.x == 0) {
-                                // console.log(mapElement.mesh.position)
-                                let a = new _CustText__WEBPACK_IMPORTED_MODULE_12__.default(pytania[x++], font, this.scene)
-                                // console.log([])
-                                a.geometry.center()
-                                a.position.set(mapElement.mesh.position.x, 60, mapElement.mesh.position.z)
-                                this.pytania.push(a);
-                            }
-                            break;
-                    }
-                });
+                    this.winBox.setFromObject(this.map[16].mesh)
 
-                this.winBox = new three__WEBPACK_IMPORTED_MODULE_15__.Box3()
-                // console.log(this.map[16])
-                this.map[16].TextBlock.translateX(-30)
-                this.map[16].mesh.material.visible = false;
-                this.map[16].mesh.material.color.set("green");
+                    this.badColision = new _Collisions__WEBPACK_IMPORTED_MODULE_10__.default(wrong, this.player1.mesh, this.scene)
+                    this.goodColision = new _Collisions__WEBPACK_IMPORTED_MODULE_10__.default(right, this.player1.mesh, this.scene)
 
-                this.winBox.setFromObject(this.map[16].mesh)
+                    //////////
+                    // console.log(wrong, right);
 
-                this.badColision = new _Collisions__WEBPACK_IMPORTED_MODULE_10__.default(wrong, this.player1.mesh, this.scene)
-                this.goodColision = new _Collisions__WEBPACK_IMPORTED_MODULE_10__.default(right, this.player1.mesh, this.scene)
+                    this.camera.position.set(20, 50, 20)
 
-                //////////
-                // console.log(wrong, right);
+                    this.player1.mesh.rotation.y += Math.PI / 2
+                    this.playerSpeed = 2;
+                    this.prevPos = new three__WEBPACK_IMPORTED_MODULE_18__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
+                    this.prevRot = new three__WEBPACK_IMPORTED_MODULE_18__.Vector3(this.player1.mesh.rotation.x, this.player1.mesh.rotation.y, this.player1.mesh.rotation.z)
 
-                this.camera.position.set(20, 50, 20)
+                    this.expl = [];
+                    // this.socketHandler.koniecGry = true;
 
-                this.player1.mesh.rotation.y += Math.PI / 2
-                this.playerSpeed = 2;
-                this.prevPos = new three__WEBPACK_IMPORTED_MODULE_15__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
-                this.prevRot = new three__WEBPACK_IMPORTED_MODULE_15__.Vector3(this.player1.mesh.rotation.x, this.player1.mesh.rotation.y, this.player1.mesh.rotation.z)
 
-                this.expl = [];
-                // this.socketHandler.koniecGry = true;
-                this.render();
+
+                    this.isLoaded = true;
+                    //
+                    // console.log("MODEL LOADED!!!")
+
+                    // model loaded - można sterować animacjami
+
+                    // this.animation1 = new Animation(this.model.mesh)
+
+                    // przykładowa animacja z modelu Mario
+
+                    // this.animation1.playAnim("crwalk")
+
+                    //kawiatura
+                    console.log(5 * this.socketHandler.num)
+                    this.player1.mesh.translateZ(5 * this.socketHandler.num)
+                    // this.player2.mesh.translateZ(5)
+                    this.player2.mesh.rotation.y += Math.PI / 2
+                    this.player2.mesh.material.color.set("red")
+                    // this.playerControl = new playerControl(window, this.animation1, this.model.mesh);
+                    this.socketHandler.oplayer.rot = this.player2.mesh.rotation
+                    this.socketHandler.oplayer.pos = new three__WEBPACK_IMPORTED_MODULE_18__.Vector3(this.player2.mesh.position.x, this.player2.mesh.position.y, this.player2.mesh.position.z)
+                    this.animation2.playAnim("crstand")
+                    this.render();
+
+                };
+
 
             } else {
                 console.log(this.num)
                 console.log("Zaczekaj aż zwolni się miejsce!")
 
             }
+
 
         })
     }
@@ -55702,6 +56195,9 @@ class Main {
         let delta = this.clock.getDelta();
         // console.log("render leci")
         // this.camera.position.set(this.player1.mesh.position.x, 80, this.player1.mesh.position.z - 10)
+        // if (this.animation1) this.animation1.update(delta)
+
+
         {//kontrola ruchu
             // this.player1.mesh
             if (_Config__WEBPACK_IMPORTED_MODULE_8__.default.turnLeft || _Config__WEBPACK_IMPORTED_MODULE_8__.default.turnRight) {
@@ -55786,28 +56282,51 @@ class Main {
         });
         if (!this.prevPos.equals(this.player1.mesh.position) || this.prevRot.y != this.player1.mesh.rotation.y) {
             this.socketHandler.sendData(this.player1.mesh.position, this.player1.mesh.rotation)
-            this.prevPos = new three__WEBPACK_IMPORTED_MODULE_15__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
-            this.prevRot = new three__WEBPACK_IMPORTED_MODULE_15__.Vector3(this.player1.mesh.rotation.x, this.player1.mesh.rotation.y, this.player1.mesh.rotation.z)
+            this.prevPos = new three__WEBPACK_IMPORTED_MODULE_18__.Vector3(this.player1.mesh.position.x, this.player1.mesh.position.y, this.player1.mesh.position.z)
+            this.prevRot = new three__WEBPACK_IMPORTED_MODULE_18__.Vector3(this.player1.mesh.rotation.x, this.player1.mesh.rotation.y, this.player1.mesh.rotation.z)
         }
+        if (_Config__WEBPACK_IMPORTED_MODULE_8__.default.moveRight || _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveLeft || _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveForward || _Config__WEBPACK_IMPORTED_MODULE_8__.default.moveBackward) {
+            if (this.animation1.animName != "crwalk")
+                this.animation1.playAnim("crwalk")
+        } else {
+            if (this.animation1.animName != "crstand")
+                this.animation1.playAnim("crstand")
+        }
+        // if (this.animation1) this.animation1.update(delta)
         // console.log(this.socketHandler.oplayer)
         // console.log(this.socketHandler.oplayer.rot.x)
-        if (!this.socketHandler.oplayer.pos.equals(this.player2.mesh.position) || this.socketHandler.oplayer.rot.y != this.player2.mesh.rotation.y) {
+        let p2Pos = new three__WEBPACK_IMPORTED_MODULE_18__.Vector3(this.player2.mesh.position.x, this.player2.mesh.position.y, this.player2.mesh.position.z)
+        // console.log(this.socketHandler.oplayer.pos)
+        if (!this.socketHandler.oplayer.pos.equals(p2Pos) || this.socketHandler.oplayer.rot.y != this.player2.mesh.rotation.y) {
             this.player2.mesh.position.set(this.socketHandler.oplayer.pos.x, this.socketHandler.oplayer.pos.y, this.socketHandler.oplayer.pos.z)
             this.player2.mesh.rotation.set(this.socketHandler.oplayer.rot.x, this.socketHandler.oplayer.rot.y, this.socketHandler.oplayer.rot.z)
             // console.log(this.player2.mesh.rotation)
+            if (this.animation2.animName != "crwalk") {
+                this.animation2.playAnim("crwalk")
+            }
+        } else {
+            if (this.animation2.animName != "crstand")
+                this.animation2.playAnim("crstand")
         }
+        if (this.animation1)
+            this.animation1.update(delta);
+        if (this.animation2)
+            this.animation2.update(delta)
 
         // this.goodColision.update();
-        let p1box3 = new three__WEBPACK_IMPORTED_MODULE_15__.Box3();
-        p1box3.setFromObject(this.player1.mesh)
+        let p1box3 = new three__WEBPACK_IMPORTED_MODULE_18__.Box3();
+        p1box3.setFromObject(this.goodColision.object)
         // console.log(this.winBox)
         if (p1box3.intersectsBox(this.winBox)) {
             // console.log(this.goodColision.meshBox.intersect(this.winBox))
             console.log("WIN")
             this.socketHandler.endGame();
         }
-        this.camera.position.set(this.player1.mesh.position.x, this.player1.mesh.position.y + 20, this.player1.mesh.position.z + 50) //kamera porusza sie za graczem
-        this.camera.lookAt(this.player1.mesh.position)
+        /////
+        this.camera.position.set(this.player1.mesh.position.x, this.player1.mesh.position.y + 60, this.player1.mesh.position.z + 60) //kamera porusza sie za graczem
+        this.camera.lookAt(this.player1.mesh.position.x, this.player1.mesh.position.y + 15, this.player1.mesh.position.z)
+
+
         this.renderer.render(this.scene, this.camera);
         if (!this.socketHandler.koniecGry)
             requestAnimationFrame(this.render.bind(this));
@@ -55837,8 +56356,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Mapblock)
 /* harmony export */ });
-/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
-/* harmony import */ var _CustText__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CustText */ "./src/components/CustText.js");
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
+/* harmony import */ var _assets_tekstura_jpg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./assets/tekstura.jpg */ "./src/components/assets/tekstura.jpg");
+/* harmony import */ var _CustText__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CustText */ "./src/components/CustText.js");
+
 
 
 
@@ -55847,18 +56368,23 @@ class Mapblock {
         // if (txtV)
         //     const { text, font } = txtV;
         this.typ = c; //zmienna która rozróżnia nam bloki
-        this.mesh = new three__WEBPACK_IMPORTED_MODULE_1__.Mesh(
-            new three__WEBPACK_IMPORTED_MODULE_1__.BoxGeometry(x, y, z),
-            new three__WEBPACK_IMPORTED_MODULE_1__.MeshBasicMaterial({ color: color }),
+        let texture = new three__WEBPACK_IMPORTED_MODULE_2__.TextureLoader().load(_assets_tekstura_jpg__WEBPACK_IMPORTED_MODULE_0__.default)
+        texture.wrapS = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
+        texture.wrapT = three__WEBPACK_IMPORTED_MODULE_2__.RepeatWrapping;
+        texture.repeat.set(4, 4);
+        this.mesh = new three__WEBPACK_IMPORTED_MODULE_2__.Mesh(
+            new three__WEBPACK_IMPORTED_MODULE_2__.BoxGeometry(x, y, z),
+            new three__WEBPACK_IMPORTED_MODULE_2__.MeshBasicMaterial({
+                map: texture
+            }),
         )
-
         this.mesh.position.x = pos_x;
         this.mesh.position.y = pos_y + (this.mesh.geometry.parameters.height / 2 + 1);
         this.mesh.position.z = pos_z
 
         if (txtV) {
             const { text, font } = txtV;
-            this.TextBlock = new _CustText__WEBPACK_IMPORTED_MODULE_0__.default(text, font, scene)
+            this.TextBlock = new _CustText__WEBPACK_IMPORTED_MODULE_1__.default(text, font, scene)
             this.TextBlock.position.set(this.mesh.position.x, 1, this.mesh.position.z + 10)
         }
 
@@ -55977,23 +56503,46 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ Player)
 /* harmony export */ });
+/* harmony import */ var _MD2Loader__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MD2Loader */ "./src/components/MD2Loader.js");
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! three */ "./node_modules/three/build/three.module.js");
-/* harmony import */ var _Animation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Animation */ "./src/components/Animation.js");
 
 
 
-class Player {
-    constructor(scene, pos_x, pos_y, pos_z) {
-        this.mesh = new three__WEBPACK_IMPORTED_MODULE_1__.Mesh(
-            new three__WEBPACK_IMPORTED_MODULE_1__.BoxGeometry(10, 20, 10),
-            new three__WEBPACK_IMPORTED_MODULE_1__.MeshBasicMaterial({ color: "blue" })
-        )
-        this.mesh.translateY(this.mesh.geometry.parameters.height / 2 + 1)
-        // this.animation = new Animation(this.mesh); //jak będzie model to dodamy!
-        scene.add(this.mesh)
+class Player extends three__WEBPACK_IMPORTED_MODULE_1__.Object3D {
+    constructor(manager) {
+        super()
+        this.manager = manager
+        this.mesh = null
+        this.geometry = null
     }
+    load(path, texture) {
+        new _MD2Loader__WEBPACK_IMPORTED_MODULE_0__.MD2Loader(this.manager).load(
+            path,
+            geometry => {
+                // this.scale.set()
 
+                this.geometry = geometry
+                this.mesh = new three__WEBPACK_IMPORTED_MODULE_1__.Mesh(geometry, new three__WEBPACK_IMPORTED_MODULE_1__.MeshPhongMaterial({
+                    map: new three__WEBPACK_IMPORTED_MODULE_1__.TextureLoader().load(texture),
+                    morphTargets: true,
+                }))
+                this.geometry.scale(0.75, 0.75, 0.75)
+                // this.scale.
+                // new BoxGeometry().scale
+                this.updateWorldMatrix();
+                this.geometry.center();
+                
+
+                this.add(this.mesh)
+
+                // this.scale.set(1, 2, 1)
+                this.position.y += 35
+                console.log(this.geometry)
+            },
+        );
+    }
 }
+
 
 /***/ }),
 
@@ -56117,6 +56666,7 @@ class Renderer extends three__WEBPACK_IMPORTED_MODULE_0__.WebGLRenderer {
         // this.
         document.addEventListener('DOMContentLoaded', () => this.updateSize(), false);
         window.addEventListener('resize', () => this.updateSize(), false);
+
     }
 
     updateSize() {
@@ -56200,7 +56750,7 @@ class SocketHandler {
     constructor(socket) {
         this.socket = socket;
         this.oplayer = {}
-        this.oplayer.pos = null;
+        this.oplayer.pos = new three__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, 0, 0);
         this.oplayer.rot = null;
         this.ktowygral = "";
         this.time = 0;
@@ -56260,6 +56810,17 @@ class SocketHandler {
     }
 
 }
+
+/***/ }),
+
+/***/ "./src/components/assets/tris.MD2":
+/*!****************************************!*\
+  !*** ./src/components/assets/tris.MD2 ***!
+  \****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "9852f0c1c6907e3bb0d3.MD2";
 
 /***/ })
 

@@ -29,14 +29,14 @@ export default class Collisions {
             this.table.push({ box: bx3, i: index })
         })
 
-        const ge = new BoxGeometry(10, 100, 10)
+        const ge = new BoxGeometry(15, 100, 10)
         const mat = new MeshBasicMaterial({ visible: false, side: DoubleSide })
         this.object = new Mesh(ge, mat)
         this.object.position.set(this.mesh.position.x, this.mesh.position.y - 25, this.mesh.position.z)
         this.meshBox = new Box3();
         this.meshBox.setFromObject(this.object);
         // const helper = new Box3Helper(this.meshBox, 0xffff00);
-
+        // scene.add(helper)
         scene.add(this.object)
         // this.elpers = []
         // // console.log(enemies)

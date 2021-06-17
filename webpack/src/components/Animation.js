@@ -1,21 +1,21 @@
 import { AnimationMixer } from 'three';
 
-export default class Animation extends AnimationMixer {
+export default class Animation {
     constructor(mesh) {
         this.mesh = mesh
-        super(this.mesh);
+        this.mixer = new AnimationMixer(this.mesh);
     }
 
     playAnim(animName) {
         this.animName = animName
-        this.uncacheRoot(this.mesh)
-        this.clipAction(this.animName).play()
+        this.mixer.uncacheRoot(this.mesh)
+        this.mixer.clipAction(this.animName).play()
     }
 
     // update mixer
     update(delta) {
         if (this) {
-            this.update(delta);
+            this.mixer.update(delta);
         }
     }
 }
