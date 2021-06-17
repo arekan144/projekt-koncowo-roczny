@@ -18,6 +18,7 @@ export default class Renderer extends WebGLRenderer {
         // this.
         document.addEventListener('DOMContentLoaded', () => this.updateSize(), false);
         window.addEventListener('resize', () => this.updateSize(), false);
+
     }
 
     updateSize() {

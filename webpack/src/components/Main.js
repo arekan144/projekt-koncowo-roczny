@@ -1,5 +1,6 @@
 import { Scene, MeshPhongMaterial, TextGeometry, GridHelper, LoadingManager, AmbientLight, Clock, Vector3, Color, Box3, Font } from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import twoj_plik from "./assets/tris.MD2"
 
 import Renderer from './Renderer';
 import Camera from './Camera';
@@ -18,6 +19,7 @@ import helvetike from "three/examples/fonts/helvetiker_regular.typeface.json"
 import OverScreen from './OverScreen';
 import { io } from "socket.io-client";
 
+
 export default class Main {
     constructor(container) {
         // console.log(location.host)
@@ -25,6 +27,7 @@ export default class Main {
         this.container = container;
         this.koniecGry = false;
         this.init();
+
     }
     init = async () => { // naprawienie tego sprawdzania, żeby tylko na jednym oknie w jednej przeglądarce
         const font = new Font(helvetike)
@@ -48,6 +51,8 @@ export default class Main {
                 this.clock = new Clock();
                 this.manager = new LoadingManager();
                 this.playerControl = new PlayerControl();
+                this.isLoaded = null
+                this.animation = null
 
                 //////////
                 //przykład tekstu, żeby pokazywał się przy blokach brązowych i żółtych, pierwszy jest nad -- pytanie
@@ -74,8 +79,29 @@ export default class Main {
                 // this.scene.add(text)
                 // this.scene.add(text)
                 //////////
+                this.manager.onLoad = () => {
+
+                    this.isLoaded = true;
+                    //
+                    console.log("MODEL LOADED!!!")
+        
+                    // model loaded - można sterować animacjami
+        
+                    this.animation = new Animation(this.model.mesh)
+        
+                    // przykładowa animacja z modelu Mario
+        
+                    this.animation.playAnim("crwalk")
+        
+                    //kawiatura
+        
+                    this.playerControl = new playerControl(window, this.animation, this.model.mesh);
+        
+                };
 
 
+
+                        
                 const grid = new GridHelper(200, 20, "red")
                 grid.translateY(1)
 
@@ -85,8 +111,9 @@ export default class Main {
                 this.ambientLight = new AmbientLight("white", 0.5)
                 this.skyBox = new Skybox(this.scene);
                 this.scene.add(this.ambientLight)
-                this.player1 = new Player(this.scene, 0, 0, 0)
-                this.player2 = new Player(this.scene, 0, 0, 0)
+                this.player1 = new Player( this.manager)
+                this.player1.load(twoj_plik)
+                this.player2 = new Player( this.manager)
                 let sciana1 = new Mapblock(this.scene, -90, 0, -400, 20, 50, 1000, 'black', 'black') //bloki mapy, osx, osy, osz, szer, wys, dlug, kolor
                 let sciana2 = new Mapblock(this.scene, 90, 0, -400, 20, 50, 1000, 'black', 'black')
                 let mapblock3 = new Mapblock(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font }) //1
@@ -115,7 +142,6 @@ export default class Main {
                 ]
                 // wstawmy to do jednej tablicy.
                 // console.log(this.map[16])
-                this.player2.mesh.material.color = new Color("red")
                 // this.camera.lookAt(this.player1.mesh.position)
 
                 this.socketHandler.oplayer = { pos: new Vector3(this.player2.mesh.position.x, this.player2.mesh.position.y, this.player2.mesh.position.z), rot: new Vector3(this.player2.mesh.rotation.x, this.player2.mesh.rotation.y, this.player2.mesh.rotation.z) }
@@ -193,6 +219,7 @@ export default class Main {
 
             }
 
+
         })
     }
 
@@ -200,6 +227,9 @@ export default class Main {
         let delta = this.clock.getDelta();
         // console.log("render leci")
         // this.camera.position.set(this.player1.mesh.position.x, 80, this.player1.mesh.position.z - 10)
+        if (this.animation) this.animation.update(delta)
+
+
         {//kontrola ruchu
             // this.player1.mesh
             if (Config.turnLeft || Config.turnRight) {

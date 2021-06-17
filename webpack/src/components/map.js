@@ -1,4 +1,5 @@
-import { BoxGeometry, Mesh, MeshBasicMaterial } from "three";
+import { BoxGeometry, Mesh, MeshBasicMaterial, TextureLoader } from "three";
+import twoj_plik from "./assets/tekstura.jpg"
 import CustText from "./CustText";
 
 export default class Mapblock {
@@ -8,7 +9,9 @@ export default class Mapblock {
         this.typ = c; //zmienna która rozróżnia nam bloki
         this.mesh = new Mesh(
             new BoxGeometry(x, y, z),
-            new MeshBasicMaterial({ color: color }),
+            new MeshBasicMaterial({ 
+                map : new TextureLoader().load(twoj_plik)
+            }),
         )
 
         this.mesh.position.x = pos_x;
