@@ -55975,7 +55975,7 @@ __webpack_require__.r(__webpack_exports__);
 class Main {
     constructor(container) {
         // console.log(location.host)
-        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_17__.io)("localhost:3000"))
+        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_17__.io)())
         this.container = container;
         this.koniecGry = false;
         this.init();
