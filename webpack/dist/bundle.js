@@ -55522,8 +55522,8 @@ __webpack_require__.r(__webpack_exports__);
 
 class Main {
     constructor(container) {
-        console.log(location.host)
-        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_14__.io)("ws://" + location.host))
+        // console.log(location.host)
+        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_14__.io)("localhost:3000"))
         this.container = container;
         this.koniecGry = false;
         this.init();
@@ -55591,18 +55591,18 @@ class Main {
                 this.player2 = new _Player__WEBPACK_IMPORTED_MODULE_5__.default(this.scene, 0, 0, 0)
                 let sciana1 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -90, 0, -400, 20, 50, 1000, 'black', 'black') //bloki mapy, osx, osy, osz, szer, wys, dlug, kolor
                 let sciana2 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 90, 0, -400, 20, 50, 1000, 'black', 'black')
-                let mapblock3 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font })
-                let mapblock4 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -100, 60, 50, 20, 'brown', 'grey', { text: "4", font: font })
-                let mapblock5 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "5", font: font })
-                let mapblock6 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -300, 50, 50, 20, 'brown', 'grey', { text: "2", font: font })
-                let mapblock7 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -300, 60, 50, 20, 'yellow', 'grey', { text: "4", font: font })
-                let mapblock8 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -300, 50, 50, 20, 'yellow', 'grey', { text: "1", font: font })
-                let mapblock9 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -500, 50, 50, 20, 'brown', 'grey', { text: "4", font: font })
-                let mapblock10 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -500, 60, 50, 20, 'yellow', 'grey', { text: "2", font: font })
-                let mapblock11 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -500, 50, 50, 20, 'yellow', 'grey', { text: "8", font: font })
-                let mapblock12 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -700, 50, 50, 20, 'brown', 'grey', { text: "2", font: font })
-                let mapblock13 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -700, 60, 50, 20, 'yellow', 'grey', { text: "1", font: font })
-                let mapblock14 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font })
+                let mapblock3 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font }) //1
+                let mapblock4 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -100, 60, 50, 20, 'brown', 'grey', { text: "4", font: font }) //1
+                let mapblock5 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "5", font: font }) //1
+                let mapblock6 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -300, 50, 50, 20, 'brown', 'grey', { text: "2", font: font }) //2
+                let mapblock7 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -300, 60, 50, 20, 'yellow', 'grey', { text: "4", font: font }) //2
+                let mapblock8 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -300, 50, 50, 20, 'yellow', 'grey', { text: "1", font: font }) //2
+                let mapblock9 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -500, 50, 50, 20, 'yellow', 'grey', { text: "8", font: font }) //3
+                let mapblock10 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -500, 60, 50, 20, 'yellow', 'grey', { text: "2", font: font }) //3
+                let mapblock11 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -500, 50, 50, 20, 'brown', 'grey', { text: "4", font: font }) //3
+                let mapblock12 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -700, 50, 50, 20, 'yellow', 'grey', { text: "1", font: font }) //4
+                let mapblock13 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -700, 60, 50, 20, 'brown', 'grey', { text: "2", font: font }) //4
+                let mapblock14 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font }) //4
                 this.map = [
                     new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, 100, 200, 50, 20, 'black', 'black'),
                     //bloki mapy,            osx, osy, osz, szer, wys, dlug, kolor
@@ -55688,8 +55688,6 @@ class Main {
                 this.expl = [];
                 // this.socketHandler.koniecGry = true;
                 this.render();
-
-
 
             } else {
                 console.log(this.num)

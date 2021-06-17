@@ -55522,7 +55522,8 @@ __webpack_require__.r(__webpack_exports__);
 
 class Main {
     constructor(container) {
-        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_14__.io)("ws://localhost:3000"))
+        console.log(location.host)
+        this.socketHandler = new _SocketHandler__WEBPACK_IMPORTED_MODULE_7__.default((0,socket_io_client__WEBPACK_IMPORTED_MODULE_14__.io)())
         this.container = container;
         this.koniecGry = false;
         this.init();
@@ -55590,18 +55591,18 @@ class Main {
                 this.player2 = new _Player__WEBPACK_IMPORTED_MODULE_5__.default(this.scene, 0, 0, 0)
                 let sciana1 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -90, 0, -400, 20, 50, 1000, 'black', 'black') //bloki mapy, osx, osy, osz, szer, wys, dlug, kolor
                 let sciana2 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 90, 0, -400, 20, 50, 1000, 'black', 'black')
-                let mapblock3 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'yellow', { text: "3", font: font })
-                let mapblock4 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -100, 60, 50, 20, 'brown', 'brown', { text: "4", font: font })
-                let mapblock5 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -100, 50, 50, 20, 'yellow', 'yellow', { text: "5", font: font })
-                let mapblock6 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -300, 50, 50, 20, 'brown', 'brown', { text: "2", font: font })
-                let mapblock7 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -300, 60, 50, 20, 'yellow', 'yellow', { text: "4", font: font })
-                let mapblock8 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -300, 50, 50, 20, 'yellow', 'yellow', { text: "1", font: font })
-                let mapblock9 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -500, 50, 50, 20, 'brown', 'brown', { text: "4", font: font })
-                let mapblock10 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -500, 60, 50, 20, 'yellow', 'yellow', { text: "2", font: font })
-                let mapblock11 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -500, 50, 50, 20, 'yellow', 'yellow', { text: "8", font: font })
-                let mapblock12 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -700, 50, 50, 20, 'brown', 'brown', { text: "2", font: font })
-                let mapblock13 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -700, 60, 50, 20, 'yellow', 'yellow', { text: "1", font: font })
-                let mapblock14 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'yellow', { text: "3", font: font })
+                let mapblock3 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font })
+                let mapblock4 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -100, 60, 50, 20, 'brown', 'grey', { text: "4", font: font })
+                let mapblock5 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "5", font: font })
+                let mapblock6 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -300, 50, 50, 20, 'brown', 'grey', { text: "2", font: font })
+                let mapblock7 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -300, 60, 50, 20, 'yellow', 'grey', { text: "4", font: font })
+                let mapblock8 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -300, 50, 50, 20, 'yellow', 'grey', { text: "1", font: font })
+                let mapblock9 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -500, 50, 50, 20, 'brown', 'grey', { text: "4", font: font })
+                let mapblock10 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -500, 60, 50, 20, 'yellow', 'grey', { text: "2", font: font })
+                let mapblock11 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -500, 50, 50, 20, 'yellow', 'grey', { text: "8", font: font })
+                let mapblock12 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, -55, 0, -700, 50, 50, 20, 'brown', 'grey', { text: "2", font: font })
+                let mapblock13 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, -700, 60, 50, 20, 'yellow', 'grey', { text: "1", font: font })
+                let mapblock14 = new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font })
                 this.map = [
                     new _Map__WEBPACK_IMPORTED_MODULE_9__.default(this.scene, 0, 0, 100, 200, 50, 20, 'black', 'black'),
                     //bloki mapy,            osx, osy, osz, szer, wys, dlug, kolor
@@ -55819,7 +55820,7 @@ class Main {
             await this.socketHandler.laderBoard;
             // console.table(this.socketHandler.ladData)
             // console.log(new Date().getTime() - this.socketHandler.time)
-            new _OverScreen__WEBPACK_IMPORTED_MODULE_13__.default(this.socketHandler.ktowygral.split("=")[0], this.socketHandler.ktowygral.split("=")[1], this.socketHandler.ladData)
+            new _OverScreen__WEBPACK_IMPORTED_MODULE_13__.default(this.socketHandler.ktowygral.split("=")[0], this.socketHandler.ktowygral.split("=")[1], this.socketHandler.ladData, this.socketHandler.ktowygral.split("=")[0] == this.socketHandler.userID + ":" + this.socketHandler.num)
         }
     }
 }
@@ -55882,8 +55883,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ OverScreen)
 /* harmony export */ });
 class OverScreen {
-    constructor(wygral, czas, tablicaWynikow) {
+    constructor(wygral, czas, tablicaWynikow, wygrales) {
         this.wygral = wygral;
+        this.wygralesTy = wygrales
         this.czas = czas
         this.tablicaWynikow = tablicaWynikow;
         czas = eval(czas)
@@ -55918,7 +55920,12 @@ class OverScreen {
         KoniecText.style.marginTop = "1em"
         let container = document.createElement("div");
         let KtoWygral = document.createElement("div");
-        KtoWygral.innerText = `Wygrał gracz o numerze: ${this.wygral} \n z czasem: ${this.Wczas}.\n Brawo!`;
+        KtoWygral.innerText = `Wygrał gracz o numerze: ${this.wygral} \n z czasem: ${this.Wczas}!`;
+        if (!this.wygralesTy) {
+            KtoWygral.innerText += `\nPowodzenia następnym razem!`
+        } else {
+            KtoWygral.innerText += `\nBrawo ty!`
+        }
         KtoWygral.classList.add("text")
         let TablicaWynikow = document.createElement("div")
         TablicaWynikow.classList.add("tablica")
@@ -55945,7 +55952,7 @@ class OverScreen {
             }
 
             d.innerHTML = `<div style="display:inline-block; width:100px; margin-right:10px;">${el.nick}</div> ${min}:${sec}:${mil}`
-            if (el.nick == this.wygral && el.czas == this.czas) {
+            if (el.nick == this.wygral && el.czas == this.czas && this.wygralesTy) {
                 d.style.color = "orange"
             }
             TablicaWynikow.appendChild(d)

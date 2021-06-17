@@ -20,8 +20,8 @@ import { io } from "socket.io-client";
 
 export default class Main {
     constructor(container) {
-        console.log(location.host)
-        this.socketHandler = new SocketHandler(io("ws://" + location.host))
+        // console.log(location.host)
+        this.socketHandler = new SocketHandler(io("localhost:3000"))
         this.container = container;
         this.koniecGry = false;
         this.init();
@@ -89,18 +89,18 @@ export default class Main {
                 this.player2 = new Player(this.scene, 0, 0, 0)
                 let sciana1 = new Mapblock(this.scene, -90, 0, -400, 20, 50, 1000, 'black', 'black') //bloki mapy, osx, osy, osz, szer, wys, dlug, kolor
                 let sciana2 = new Mapblock(this.scene, 90, 0, -400, 20, 50, 1000, 'black', 'black')
-                let mapblock3 = new Mapblock(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font })
-                let mapblock4 = new Mapblock(this.scene, 0, 0, -100, 60, 50, 20, 'brown', 'grey', { text: "4", font: font })
-                let mapblock5 = new Mapblock(this.scene, 55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "5", font: font })
-                let mapblock6 = new Mapblock(this.scene, -55, 0, -300, 50, 50, 20, 'brown', 'grey', { text: "2", font: font })
-                let mapblock7 = new Mapblock(this.scene, 0, 0, -300, 60, 50, 20, 'yellow', 'grey', { text: "4", font: font })
-                let mapblock8 = new Mapblock(this.scene, 55, 0, -300, 50, 50, 20, 'yellow', 'grey', { text: "1", font: font })
-                let mapblock9 = new Mapblock(this.scene, -55, 0, -500, 50, 50, 20, 'brown', 'grey', { text: "4", font: font })
-                let mapblock10 = new Mapblock(this.scene, 0, 0, -500, 60, 50, 20, 'yellow', 'grey', { text: "2", font: font })
-                let mapblock11 = new Mapblock(this.scene, 55, 0, -500, 50, 50, 20, 'yellow', 'grey', { text: "8", font: font })
-                let mapblock12 = new Mapblock(this.scene, -55, 0, -700, 50, 50, 20, 'brown', 'grey', { text: "2", font: font })
-                let mapblock13 = new Mapblock(this.scene, 0, 0, -700, 60, 50, 20, 'yellow', 'grey', { text: "1", font: font })
-                let mapblock14 = new Mapblock(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font })
+                let mapblock3 = new Mapblock(this.scene, -55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font }) //1
+                let mapblock4 = new Mapblock(this.scene, 0, 0, -100, 60, 50, 20, 'brown', 'grey', { text: "4", font: font }) //1
+                let mapblock5 = new Mapblock(this.scene, 55, 0, -100, 50, 50, 20, 'yellow', 'grey', { text: "5", font: font }) //1
+                let mapblock6 = new Mapblock(this.scene, -55, 0, -300, 50, 50, 20, 'brown', 'grey', { text: "2", font: font }) //2
+                let mapblock7 = new Mapblock(this.scene, 0, 0, -300, 60, 50, 20, 'yellow', 'grey', { text: "4", font: font }) //2
+                let mapblock8 = new Mapblock(this.scene, 55, 0, -300, 50, 50, 20, 'yellow', 'grey', { text: "1", font: font }) //2
+                let mapblock9 = new Mapblock(this.scene, -55, 0, -500, 50, 50, 20, 'yellow', 'grey', { text: "8", font: font }) //3
+                let mapblock10 = new Mapblock(this.scene, 0, 0, -500, 60, 50, 20, 'yellow', 'grey', { text: "2", font: font }) //3
+                let mapblock11 = new Mapblock(this.scene, 55, 0, -500, 50, 50, 20, 'brown', 'grey', { text: "4", font: font }) //3
+                let mapblock12 = new Mapblock(this.scene, -55, 0, -700, 50, 50, 20, 'yellow', 'grey', { text: "1", font: font }) //4
+                let mapblock13 = new Mapblock(this.scene, 0, 0, -700, 60, 50, 20, 'brown', 'grey', { text: "2", font: font }) //4
+                let mapblock14 = new Mapblock(this.scene, 55, 0, -700, 50, 50, 20, 'yellow', 'grey', { text: "3", font: font }) //4
                 this.map = [
                     new Mapblock(this.scene, 0, 0, 100, 200, 50, 20, 'black', 'black'),
                     //bloki mapy,            osx, osy, osz, szer, wys, dlug, kolor
@@ -186,8 +186,6 @@ export default class Main {
                 this.expl = [];
                 // this.socketHandler.koniecGry = true;
                 this.render();
-
-
 
             } else {
                 console.log(this.num)
